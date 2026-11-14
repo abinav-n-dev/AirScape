@@ -1216,21 +1216,31 @@ function setupAudioEvents() {
 
   if (!audio || !statusElem) return;
 
+  audio.addEventListener("canplay", () => {
+    if (audio.paused && audio.currentTime === 0) {
+      statusElem.textContent = "Audio ready (Click play to listen)";
+    }
+  });
+
   audio.addEventListener("play", () => {
-    statusElem.textContent = "Event: 'play' triggered";
+    statusElem.textContent = "Playing atmospheric audio...";
   });
 
   audio.addEventListener("pause", () => {
-    statusElem.textContent = "Event: 'pause' triggered";
+    statusElem.textContent = "Paused";
   });
 
   audio.addEventListener("timeupdate", () => {
     const sec = Math.floor(audio.currentTime);
-    statusElem.textContent = `Event: 'timeupdate' (${sec}s)`;
+    statusElem.textContent = `Playing (${sec}s / 6s)`;
   });
 
   audio.addEventListener("ended", () => {
-    statusElem.textContent = "Event: 'ended' triggered";
+    statusElem.textContent = "Completed playback";
+  });
+
+  audio.addEventListener("error", () => {
+    statusElem.textContent = "Audio file unavailable";
   });
 }
 

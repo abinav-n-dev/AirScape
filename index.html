@@ -569,18 +569,16 @@
           <!-- HTML5 Audio Component with Event Handling -->
           <div class="media-box audio-box">
             <h4 class="media-subtitle">Audio Guide & Ambient Soundscape (HTML5 Audio)</h4>
-            <p class="media-caption">Listen to our 30-second advisory guide on interpreting particulate matter readings.</p>
+            <p class="media-caption">Listen to our atmospheric soundscape and environmental guide.</p>
             
             <audio id="airscape-audio" class="audio-player" controls preload="metadata">
-              <!-- Using standard royalty-free / browser-compatible sample audio -->
-              <source src="https://actions.google.com/sounds/v1/weather/wind_blowing_soft.ogg" type="audio/ogg">
-              <source src="https://actions.google.com/sounds/v1/weather/wind_blowing_soft.mp3" type="audio/mpeg">
+              <source src="ambient-sound.wav" type="audio/wav">
               Your browser does not support the audio element.
             </audio>
 
             <div class="audio-status-box">
               <span class="audio-status-label">Audio Event Listener:</span>
-              <span id="audio-event-status" class="audio-status-value">Ready (Idle)</span>
+              <span id="audio-event-status" class="audio-status-value">Ready (Click play to listen)</span>
             </div>
           </div>
         </div>
