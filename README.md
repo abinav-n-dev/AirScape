@@ -2,6 +2,8 @@
 
 > **CSE326: Internet Programming Course Project**  
 > **Student Academic Project** | Session 2026–27  
+> **Live Demo:** [https://abinav-n-dev.github.io/AirScape/](https://abinav-n-dev.github.io/AirScape/)  
+> **Repository:** [https://github.com/abinav-n-dev/AirScape](https://github.com/abinav-n-dev/AirScape)  
 > **Tech Stack:** Semantic HTML5, CSS3 (Variables, Flexbox, Grid), Vanilla JavaScript (ES6)  
 > **Zero External Dependencies / No Frameworks / No Build Tools / No API Keys Required**
 
