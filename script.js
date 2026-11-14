@@ -1,9 +1,8 @@
 // =============================================================================
-// AirScape - CSE326 (Internet Programming) Course Project
+// AirScape - Real-Time Air Quality & Atmosphere Visualizer
 // Pure Vanilla JavaScript Application (No frameworks, No build step)
-// Concepts Demonstrated: DOM Manipulation, Fetch API, Geolocation API,
-// Web Storage (localStorage & sessionStorage), Drag & Drop API, Regular Expressions,
-// Form Events, Higher-Order Functions, Closures, Audio Events.
+// Architecture: DOM Manipulation, Fetch API, Geolocation API, Web Storage,
+// HTML5 Drag & Drop API, Regular Expressions, Form Events, Higher-Order Functions.
 // =============================================================================
 
 // -----------------------------------------------------------------------------

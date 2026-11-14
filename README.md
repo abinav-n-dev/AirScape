@@ -1,159 +1,155 @@
-# AirScape - Real-Time Air Quality & Visual Scene Web App
+# AirScape - Real-Time Air Quality & Atmospheric Scene Visualizer
 
-> **Academic Task Number:** CA1 (Project)  
-> **Course Code:** CSE326 | **Course Title:** Internet Programming  
-> **Institution:** Lovely Professional University (LPU) | Session 2026–27  
-> **Maximum Marks:** 30  
-> **Live Demo:** [https://abinav-n-dev.github.io/AirScape/](https://abinav-n-dev.github.io/AirScape/)  
-> **Repository:** [https://github.com/abinav-n-dev/AirScape](https://github.com/abinav-n-dev/AirScape)  
-> **Tech Stack:** Pure Semantic HTML5, CSS3 (Variables, Flexbox, Grid), Vanilla JavaScript (ES6)  
-> **Zero External Dependencies / No Frameworks / No Build Tools / No API Keys Required**
+> An open-source, client-side web application that translates real-time air pollution data into an interactive, visual atmospheric scene with personalized health guidance.
+>
+> **Live Web App:** [https://abinav-n-dev.github.io/AirScape/](https://abinav-n-dev.github.io/AirScape/)  
+> **Source Code:** [https://github.com/abinav-n-dev/AirScape](https://github.com/abinav-n-dev/AirScape)  
+> **Technology Stack:** Pure HTML5, CSS3 (Variables, Flexbox, Grid, Animations), Vanilla JavaScript (ES6)  
+> **Zero External Dependencies / No Frameworks / No Build Steps / No API Keys Required**
 
 ---
 
-## 1. Project Overview & Motivation
+## 1. Project Motivation & Problem Statement
 
-### The Real-World Problem
-Every winter across Northern India (Punjab, Haryana, Delhi-NCR, Uttar Pradesh), a dangerous convergence occurs:
-- Seasonal crop stubble burning (paddy residue) releases massive particulate plumes.
-- Winter temperature inversions and low wind speeds trap smoke and industrial pollutants near ground level.
-- Dense fog mixes with smog to produce hazardous particulate matter levels (**PM2.5 and PM10** often exceeding 300 to 500 µg/m³).
+### The North Indian Winter Air Quality Crisis
+Every winter across Northern India (Punjab, Haryana, Delhi-NCR, Uttar Pradesh), a seasonal environmental crisis unfolds:
+- Agricultural stubble burning releases large plumes of particulate matter into the regional atmosphere.
+- Low surface temperatures and weak wind speeds trigger temperature inversions, trapping vehicle exhaust and industrial emissions near ground level.
+- Dense fog merges with particulates to form hazardous smog, pushing **PM2.5 and PM10** concentrations to hazardous levels (often 300 to 500+ µg/m³).
 
-### Why Existing Weather Apps Fall Short
-1. **Abstract Numbers:** Standard apps display an arbitrary number (e.g., `AQI 240`) which fails to convey the immediate visual density or physical danger of the atmosphere.
-2. **One-Size-Fits-All Advice:** Standard weather applications give identical advice to everyone. In reality, a healthy 20-year-old athlete and an 8-year-old child with asthma require completely different health precautions.
+### Why Traditional Weather Apps Fall Short
+1. **Abstract Numbers Without Context:** Most weather applications display a single arbitrary number (e.g. `AQI 220`), which fails to convey the physical reality or optical density of the smog outside.
+2. **One-Size-Fits-All Advice:** Standard platforms issue identical generic cautions to all individuals. A healthy adult athlete, an elderly citizen, and an asthmatic child face drastically different physiological risks and require distinct protective precautions.
 
-### What AirScape Does
-**AirScape** is a client-side web application that:
-1. Translates real-time air quality metrics into a **live CSS-simulated atmospheric sky scene**: the sky gradient, sun disc clarity, and haze opacity adapt smoothly in real time.
-2. Computes an **Effective Personal AQI** and personalized health precautions tailored to the user's age, respiratory sensitivity (asthma/allergies), and daily outdoor exposure time.
-3. Provides a **24-hour predictive forecast** highlighting the optimal daytime window ("Best Time to Step Outdoors") and the "Worst Pollution Peak".
-4. Features an interactive **City Comparison Tool** built with the native **HTML5 Drag and Drop API**.
-5. Runs **100% offline-resilient** with hardcoded fallback data for 10 Indian cities if the network drops or API requests fail.
-
----
-
-## 2. Evaluation Rubrics Alignment (30 / 30 Marks)
-
-| Evaluation Criteria | Allotted Marks | Implementation in AirScape |
-| :--- | :---: | :--- |
-| **Website Design & User Interface** | **10 Marks** | Clean visual design, consistent typography, standard US EPA color palette via CSS variables, mobile menu toggle, and fully responsive across 360px, 768px, and 1024px+. |
-| **Functionality & Technical Implementation** | **10 Marks** | Dynamic 24-hour bar chart loop, HTML5 Drag & Drop city comparison, Geolocation GPS integration, LocalStorage and SessionStorage persistence, Regex form validation, audio event listeners, and zero console errors. |
-| **Content Quality & Innovation** | **5 Marks** | Highly relevant to the Punjab/North Indian winter smog crisis. Innovates by replacing static numbers with a dynamic CSS sky simulator and personalized sensitivity-based health formulas. |
-| **Viva Voce & Project Demonstration** | **5 Marks** | Clear code organization, short functions with educational comments, fully documented architecture, and quick-reference viva questions below. |
-| **Total** | **30 Marks** | **Full Rubric Compliance** |
+### How AirScape Solves This
+**AirScape** bridges the gap between atmospheric data and daily human decisions:
+- **Atmospheric Sky Simulator:** Renders a dynamic horizon window where the sky gradient, solar disk blur, and haze opacity dynamically shift in real time with the AQI.
+- **Personalized Exposure Algorithm:** Calculates an **Effective AQI** scaled by +35% for respiratory conditions and +20% for pediatric and elderly age groups.
+- **24-Hour Predictive Planning:** Scans hourly forecasts to pinpoint the safest daytime outdoor window (between 6 AM and 9 PM) and warns against peak pollution hours.
+- **Side-by-Side City Comparison:** Employs the native HTML5 Drag and Drop API to compare pollution levels and calculate relative toxicity ratios between cities.
+- **Offline Resilience:** Pre-caches detailed baseline datasets for 10 Indian cities so the application remains fully functional during network interruptions.
 
 ---
 
-## 3. Course Syllabus Implementation Matrix (CSE326)
+## 2. Technical Architecture & Web Standards
 
-This project has been deliberately architected to satisfy all core outcomes of the **CSE326: Internet Programming** syllabus:
+AirScape is built strictly using web standards and vanilla technologies without third-party frameworks, libraries, or build pipelines.
 
-| Syllabus Unit | Course Concepts Covered | Implementation in AirScape |
+| Architecture Layer | Core Concepts Implemented | Technical Details |
 | :--- | :--- | :--- |
-| **Unit I: HTML Fundamentals** | Document structure, tags, lists, links, SVG graphics, multimedia (audio, video, iframes), SEO basics | Semantic layout, SVG graphics for landscape skyline, embedded live wind map iframe, audio player with event listeners, accessible metadata and viewport tags |
-| **Unit II: Semantic HTML & Forms** | Semantic layout (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`), form controls, input attributes, tables and data representation | Form structure with `<input type="text">`, `<input type="number">`, `<input type="range">`, `<fieldset>`, `<legend>`, error spans, and full HTML5 `<table>` for US EPA AQI breakpoints |
-| **Unit III: Cascading Style Sheets** | CSS variables, typography, box model, Flexbox, CSS Grid, pseudo-classes, pseudo-elements, attribute selectors, CSS transitions, CSS animations (`@keyframes`) | Responsive CSS Grid for dashboard, Flexbox for navigation, CSS Variables (`--aqi-*`), CSS transitions for smooth sky shifts, and `@keyframes pulse-live` animation |
-| **Unit IV: JavaScript Fundamentals** | Variables, data types, operators, conditional statements, functions, arrays, objects | Pure ES6 JavaScript, clear student-level comments, `if/else` advice engine, array math for 24-hour calculations |
-| **Unit V: Interactive Web Development** | Loops, DOM manipulation, event handling, regular expressions, Date API, Web Storage (LocalStorage & SessionStorage), Fetch API, Geolocation API, Drag & Drop API, higher-order functions (`.reduce`, `.filter`, `.map`), closures, audio events | 24-hour forecast loop, Regex form validation, Geolocation GPS lookup, `localStorage` & `sessionStorage` persistence, Drag & Drop comparison, audio event listeners, and higher-order functions |
-| **Unit VI: Web Deployment** | Error handling, debugging, responsive testing, static deployment | `try/catch` error boundaries, zero console errors, full responsiveness (360px, 768px, 1024px+), deployed live on GitHub Pages |
+| **Semantic HTML5** | Structural semantics, form controls, SVG, multimedia, tables | Built with `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, and `<footer>`. Features accessible form controls (`<fieldset>`, `<legend>`, range slider), inline SVG horizon silhouettes, an embedded regional wind/particulate radar (`<iframe>`), an audio advisory player (`<audio>`), and an EPA breakpoint reference table (`<table>`). |
+| **Modern CSS3 Design System** | Custom properties, layouts, transitions, keyframes | Uses CSS Variables (`:root`) for color tokens and standard EPA category thresholds (`--aqi-good` through `--aqi-hazardous`). Layouts use responsive CSS Grid and Flexbox. Changes in air quality drive hardware-accelerated CSS transitions (`0.8s ease`). The live indicator uses `@keyframes pulse-live` for visual presence. |
+| **Client-Side JavaScript (ES6)** | Functional programming, DOM manipulation, events | Pure ES6 JavaScript with short, modular functions and descriptive documentation. Handles user inputs, search parsing, and dynamic UI rendering without page reloads. Includes higher-order functions (`.reduce()` for daily averages, `.filter()` for unhealthy hours, `.map()` for data transformations). |
+| **Browser APIs** | Geolocation, Web Storage, Drag & Drop, Audio events | Integrated with `navigator.geolocation.getCurrentPosition()` for GPS tracking. HTML5 Drag and Drop API powers city comparison cards. Web Storage API manages both persistent favorites (`localStorage`) and session query counts (`sessionStorage`) via a lexical closure. Native audio event listeners monitor playback lifecycles. |
+| **Network & Resilience** | Fetch API, error boundaries, offline caching | REST integration with free Open-Meteo Geocoding and Air Quality endpoints using `async/await` and `try/catch`. Gracefully falls back to hardcoded datasets for 10 Indian cities (*Ludhiana, Jalandhar, Amritsar, Delhi, Kolkata, Mumbai, Chennai, Bengaluru, Kochi, Shimla*) if offline. |
 
 ---
 
-## 4. Key Technical Features
+## 3. Core Features Deep Dive
 
-### A. The CSS Sky Simulator (`updateScene(aqi)`)
-Unlike heavy canvas or WebGL libraries, the sky effect uses pure CSS transitions:
-- **Sky Gradient:** Shifts smoothly between 6 stages:
+### A. The CSS Atmospheric Sky Simulator (`updateScene(aqi)`)
+Rather than relying on resource-intensive canvas rendering, the atmospheric scene uses pure CSS transitions:
+- **Sky Gradient:** Dynamically transitions across 6 environmental states:
   - `0 – 50 (Good):` Clear Azure Blue (`linear-gradient(180deg, #38bdf8, #bae6fd)`)
-  - `51 – 100 (Moderate):` Mild Blue-Yellow horizon
+  - `51 – 100 (Moderate):` Soft Blue with mild horizon pale yellow
   - `101 – 150 (Sensitive):` Dusty Warm Haze (`#94a3b8` to `#fed7aa`)
   - `151 – 200 (Unhealthy):` Sepia Smoggy Orange-Gray
   - `201 – 300 (Very Unhealthy):` Thick Brownish-Orange Smog
-  - `301+ (Hazardous):` Apocalyptic Choked Dark Smog (`#292524` to `#7c2d12`)
-- **CSS Sun Circle:**
-  - In clean air: Bright yellow, sharp disc, vibrant bloom (`box-shadow: 0 0 50px #fde047`).
-  - As AQI worsens: Opacity drops to `0.15`, blur increases up to `15px`, and glow extinguishes.
-- **CSS Haze Overlay:**
-  - An absolute overlay whose opacity transitions dynamically from `0.0` (clean) up to `0.90` (hazardous).
+  - `301+ (Hazardous):` Dense Apocalyptic Smog Blanket (`#292524` to `#7c2d12`)
+- **Sun Attenuation:** In clean air, the sun appears sharp and vibrant (`box-shadow: 0 0 50px #fde047`). As particulate density rises, opacity decreases to `0.15` and optical filter blur increases up to `15px`.
+- **Haze Ingress:** An absolute haze layer increases in opacity from `0.0` to `0.90` as particulate concentrations rise.
 
-### B. Personalised Health Advice Algorithm
-The advice engine uses plain, transparent conditional logic:
-1. **Base AQI:** Obtained from live Open-Meteo data or user selection.
-2. **Sensitivity Multiplier:**
+### B. Personalized Health Advisory Formula
+Health guidance uses plain, transparent mathematical logic:
+1. **Base AQI:** Sourced from real-time Open-Meteo observations or user selection.
+2. **Vulnerability Scaling:**
    $$\text{Multiplier} = 1.0$$
-   - If user indicates asthma, allergies, or breathing sensitivity: $\text{Multiplier} \times 1.35$ (+35%)
-   - If user age $< 12$ (pediatric) or $\ge 60$ (geriatric): $\text{Multiplier} \times 1.20$ (+20%)
-3. **Effective AQI Calculation:**
+   - Asthma / Allergy / Respiratory Sensitivity: $\text{Multiplier} \times 1.35$ (+35%)
+   - Age Under 12 or Age 60+: $\text{Multiplier} \times 1.20$ (+20%)
+3. **Effective AQI:**
    $$\text{Effective AQI} = \text{round}(\text{Base AQI} \times \text{Multiplier})$$
-4. **Risk Categorization:**
-   - $\le 50 \implies \text{Low Risk}$
-   - $51 - 100 \implies \text{Mild Risk}$
-   - $101 - 150 \implies \text{Elevated Risk}$
-   - $151 - 200 \implies \text{High Risk}$
-   - $201 - 300 \implies \text{Very High Risk}$
-   - $301+ \implies \text{Severe Risk}$
-5. **Actionable Output:**
-   - Specific mask recommendations (e.g. N95/FFP2 respirator requirement).
-   - Window sealing and HEPA filtration reminders.
-   - Cumulative dose alerts for planned outdoor exposure ($>2$ hours).
-   - Emergency guidance for sensitive groups to keep rescue inhalers accessible.
+4. **Actionable Recommendations:**
+   - Specific respirator requirements (N95/FFP2 masks).
+   - Window sealing and indoor air filtration reminders.
+   - Cumulative exposure warnings for outdoor durations exceeding 2 hours.
+   - Rapid-access medication reminders for sensitive individuals.
 
-### C. 24-Hour Forecast & Higher-Order Functions
-- JavaScript `for` loop dynamically generates 24 hour columns with proportional bar heights.
-- Uses **`Array.prototype.reduce()`** to calculate the daily average AQI.
-- Uses **`Array.prototype.filter()`** to count hours exceeding unhealthy limits ($>150$).
-- Uses **`Array.prototype.map()`** to transform forecast data points.
-- Analyzes hours between **6:00 AM and 9:00 PM** to pinpoint the single cleanest window for outdoor commuting.
+### C. 24-Hour Trend & Activity Planning
+- Constructs 24 hourly bar columns dynamically using JavaScript.
+- Evaluates hours between **6:00 AM and 9:00 PM** to identify the optimal window for outdoor activities.
+- Flags the day's peak pollution window to prevent outdoor exercise during dangerous intervals.
 
-### D. HTML5 Drag and Drop City Comparison
-- Native HTML5 Drag and Drop API (`draggable="true"`, `dragstart`, `dragover`, `dragleave`, `drop`).
-- Drag any city chip into **City A** and **City B** dropzones.
-- Computes pollution ratios, difference margins (e.g. *"Delhi's air is worse than Shimla by 248 AQI points"*), and renders a visual proportion bar.
-- Includes mobile-friendly `<select>` dropdowns so mobile touchscreen users have full functionality.
-
-### E. Browser Storage (LocalStorage & SessionStorage)
-Wrapped inside `try/catch` blocks:
-- **`localStorage`:** Saves last selected city, star bookmarks, and health profile inputs.
-- **`sessionStorage`:** Tracks the number of searches performed during the active browser session via a JavaScript **closure** (`createSessionSearchTracker()`).
-
-### F. Geolocation & Open-Meteo Free APIs
-- **City Geocoding:** `https://geocoding-api.open-meteo.com/v1/search?name=CITY&count=1`
-- **Air Quality:** `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=LAT&longitude=LON&current=us_aqi,pm10,pm2_5&hourly=us_aqi&forecast_days=1&timezone=auto`
-- **Geolocation API:** `navigator.geolocation.getCurrentPosition()` connects directly to GPS coordinates.
-- **Offline Fallback Database:** Full fallback dataset for 10 Indian cities:
-  *Ludhiana, Jalandhar, Amritsar, Delhi, Kolkata, Mumbai, Chennai, Bengaluru, Kochi, Shimla*.
+### D. HTML5 Drag & Drop City Comparison
+- Native drag-and-drop mechanics (`draggable="true"`, `dragstart`, `dragover`, `dragleave`, `drop`).
+- Drag any city chip into Slot A or Slot B to compute pollution difference margins and relative ratios (e.g. *Delhi is 3.8x more polluted than Shimla*).
+- Includes mobile-friendly `<select>` dropdown menus for touchscreens.
 
 ---
 
-## 5. Viva Voce Preparation Guide (Sample Questions & Answers)
+## 4. Project File Structure
 
-1. **Q: How does the dynamic sky visualizer work without HTML5 Canvas?**  
-   *A:* In `script.js`, `updateScene(aqi)` updates inline CSS styles on three elements: the background gradient of `#sky-scene`, the blur filter/opacity of `#scene-sun`, and the opacity of `#scene-haze`. The smooth transitions are handled entirely by CSS `transition: background 0.8s ease, filter 0.8s ease;`.
-
-2. **Q: How do you handle network failure or missing API keys?**  
-   *A:* All `fetch` calls use `async/await` wrapped in `try/catch`. If an HTTP error, offline status, or rate limit occurs, `loadFallbackCity(cityName)` seamlessly loads pre-configured baseline data for 10 Indian cities so the application never renders blank or crashes.
-
-3. **Q: Where have you demonstrated higher-order functions in JavaScript?**  
-   *A:* In `renderForecast()` inside `script.js`, we use `Array.prototype.reduce()` to calculate the 24-hour average AQI, `Array.prototype.filter()` to count hours exceeding an AQI of 150, and `Array.prototype.map()` to project hourly metrics.
-
-4. **Q: Where have you demonstrated closures?**  
-   *A:* The function `createSessionSearchTracker()` maintains a private `sessionCount` variable enclosed within its lexical scope, returning an inner function that increments and persists the count to `sessionStorage`.
-
-5. **Q: How is the HTML5 Drag and Drop API implemented?**  
-   *A:* Draggable chips have `draggable="true"` and a `dragstart` listener setting `dataTransfer.setData("text/plain", cityName)`. The drop targets handle `dragover` (with `e.preventDefault()`) and `drop` (which retrieves the city name with `e.dataTransfer.getData()`) to update the comparison slot.
+```text
+AirScape/
+├── index.html        # Semantic HTML5 markup, forms, table, media elements
+├── style.css         # CSS3 styling, variables, Flexbox, Grid, transitions, animations
+├── script.js         # Pure Vanilla JavaScript: APIs, DOM logic, advice engine, storage
+└── README.md         # Architecture documentation, problem statement, technical guide
+```
 
 ---
 
-## 6. How to Run Locally & Submit
+## 5. Technical Questions & Architecture FAQ
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/abinav-n-dev/AirScape.git
-   cd AirScape
-   ```
-2. Open `index.html` in any web browser or serve via Python:
-   ```bash
-   python3 -m http.server 8000
-   ```
-3. Live GitHub Pages URL: **https://abinav-n-dev.github.io/AirScape/**
+1. **How is the visual sky engine implemented without external graphic libraries?**  
+   In `script.js`, `updateScene(aqi)` recalculates inline style properties on three elements: the background gradient of `#sky-scene`, the blur filter/opacity of `#scene-sun`, and the opacity of `#scene-haze`. The transitions are handled by CSS `transition: background 0.8s ease, filter 0.8s ease;`.
+
+2. **How does the application ensure uptime during network outages?**  
+   Every API request is wrapped in an `async/await` `try/catch` block. If the geocoding or air quality endpoint fails or the user is disconnected, `loadFallbackCity()` instantly activates pre-configured data for 10 representative Indian cities.
+
+3. **Where are higher-order functions utilized?**  
+   Inside `renderForecast()` in `script.js`:
+   - `Array.prototype.reduce()` calculates the 24-hour mean AQI.
+   - `Array.prototype.filter()` isolates hours exceeding unhealthy thresholds ($>150$).
+   - `Array.prototype.map()` transforms raw values into hourly metric objects.
+
+4. **How are closures applied in the state layer?**  
+   `createSessionSearchTracker()` encapsulates a private `sessionCount` integer within its lexical scope, returning an inner function that increments and writes the count to `sessionStorage`.
+
+5. **How does the Drag and Drop API transfer state?**  
+   Draggable chips set their city identifier on `dragstart` using `event.dataTransfer.setData("text/plain", cityName)`. The drop targets prevent default handling on `dragover` and read the payload on `drop` via `event.dataTransfer.getData("text/plain")` to trigger side-by-side analysis.
+
+---
+
+## 6. Local Setup & GitHub Pages Deployment
+
+### Running Locally
+Open `index.html` directly in any web browser, or launch a lightweight server:
+```bash
+# Clone the repository
+git clone https://github.com/abinav-n-dev/AirScape.git
+cd AirScape
+
+# Serve via Python's built-in HTTP server
+python3 -m http.server 8000
+```
+Visit `http://localhost:8000` in your browser.
+
+### GitHub Pages Deployment
+1. Push `index.html`, `style.css`, `script.js`, and `README.md` to the `main` branch.
+2. In your GitHub repository, navigate to **Settings > Pages**.
+3. Under **Build and deployment > Source**, select **Deploy from a branch** (`main` / root).
+4. The application deploys to: **`https://<your-username>.github.io/AirScape/`**
+
+---
+
+## 7. Responsive Breakpoints
+
+- **Mobile (360px – 480px):** Single-column layout, touch targets $\ge 44\text{px}$, horizontal-scrolling hourly charts, mobile comparison dropdowns.
+- **Tablet (768px):** Two-column card grid, side-by-side forecast highlights.
+- **Desktop (1024px+):** Full expansive dashboard layout, interactive drag-and-drop pool, smooth hover elevations.
+
+---
+
+## 8. Disclaimer
+
+*Notice:* AirScape generates preventive health guidance based on standard environmental benchmarks (US EPA AQI). This application is intended for educational and public health awareness and does not constitute clinical medical diagnosis. Users with severe or persistent respiratory symptoms should seek medical consultation.
