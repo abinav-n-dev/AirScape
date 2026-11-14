@@ -1569,6 +1569,12 @@ input[type="range"] {
   color: var(--text-muted);
 }
 
+.footer-team {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-top: 0.2rem;
+}
+
 .back-to-top-btn {
   text-decoration: none;
   font-size: 0.85rem;
