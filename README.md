@@ -7,7 +7,7 @@
 
 ---
 
-## 🌤️ 1. Project Overview & Motivation
+## 1. Project Overview & Motivation
 
 ### The Real-World Problem
 Every winter across Northern India (Punjab, Haryana, Delhi-NCR, Uttar Pradesh), a dangerous convergence occurs:
@@ -29,13 +29,13 @@ Every winter across Northern India (Punjab, Haryana, Delhi-NCR, Uttar Pradesh), 
 
 ---
 
-## 📋 2. Course Syllabus Implementation Matrix (CSE326)
+## 2. Course Syllabus Implementation Matrix (CSE326)
 
 This project has been deliberately architected to satisfy all core outcomes of the **CSE326: Internet Programming** syllabus:
 
 | Syllabus Unit | Course Concepts Covered | Implementation in AirScape |
 | :--- | :--- | :--- |
-| **Unit I: HTML Fundamentals** | Document structure, tags, lists, links, SVG graphics, SEO basics | Semantic layout, inline SVG weather and wind icons, accessible metadata and viewport tags |
+| **Unit I: HTML Fundamentals** | Document structure, tags, lists, links, SVG graphics, SEO basics | Semantic layout, SVG graphics for landscape skyline, accessible metadata and viewport tags |
 | **Unit II: Semantic HTML & Forms** | Semantic layout (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`), form controls, input attributes | Form structure with `<input type="text">`, `<input type="number">`, `<input type="range">`, `<fieldset>`, `<legend>`, error spans |
 | **Unit III: Cascading Style Sheets** | CSS variables, typography, box model, Flexbox, CSS Grid, pseudo-classes, transitions | Responsive CSS Grid for dashboard, Flexbox for navigation, CSS Variables (`--aqi-*`), CSS transitions for smooth sky shifts |
 | **Unit IV: JavaScript Fundamentals** | Variables, data types, operators, conditional statements, functions, arrays, objects | Pure ES6 JavaScript, clear student-level comments, `if/else` advice engine, array math for 24-hour calculations |
@@ -44,7 +44,7 @@ This project has been deliberately architected to satisfy all core outcomes of t
 
 ---
 
-## 🎨 3. Key Technical Features
+## 3. Key Technical Features
 
 ### A. The CSS Sky Simulator (`updateScene(aqi)`)
 Unlike heavy canvas or WebGL libraries, the sky effect uses pure CSS transitions:
@@ -97,7 +97,7 @@ The advice engine uses plain, transparent conditional logic:
 ### E. Persistent Browser Storage (`localStorage`)
 Wrapped inside `try/catch` blocks for reliability:
 - Saves last selected city and automatically restores it upon return.
-- Bookmark star button allows saving favourite cities to a quick-access chips bar.
+- Save button allows saving favourite cities to a quick-access chips bar.
 - Remembers user health profile (nickname, age, outdoor hours, sensitivity toggle).
 
 ### F. Geolocation & Open-Meteo Free APIs
@@ -109,11 +109,11 @@ Wrapped inside `try/catch` blocks for reliability:
 
 ---
 
-## 📂 4. Project File Structure
+## 4. Project File Structure
 
 ```text
 CSE326/
-├── index.html        # Semantic HTML5 markup, accessible forms, SVG icons
+├── index.html        # Semantic HTML5 markup, accessible forms
 ├── style.css         # CSS3 styling, variables, Flexbox, Grid, transitions, responsive queries
 ├── script.js         # Pure Vanilla JavaScript: API fetches, DOM manipulation, advice engine
 └── README.md         # Academic documentation, problem statement, syllabus mapping
@@ -121,45 +121,33 @@ CSE326/
 
 ---
 
-## 🚀 5. How to Run Locally
+## 5. How to Run Locally
 
 Because AirScape uses pure client-side web technologies:
 
-1. Clone or download this repository.
-2. Open `index.html` directly in any modern web browser (Google Chrome, Firefox, Microsoft Edge, Safari):
+1. Open `index.html` directly in any modern web browser (Google Chrome, Firefox, Microsoft Edge, Safari):
    ```bash
    # Linux / macOS
-   xdg-open index.html   # or open index.html
+   xdg-open index.html
 
    # Or serve with Python's built-in lightweight server
    python3 -m http.server 8000
    ```
-3. Open `http://localhost:8000` in your browser.
+2. Open `http://localhost:8000` in your browser.
 
 ---
 
-## 🌐 6. How to Deploy to GitHub Pages
+## 6. How to Deploy to GitHub Pages
 
-1. Create a new GitHub repository named `AirScape` or `CSE326-Project`.
-2. Push `index.html`, `style.css`, `script.js`, and `README.md` to the `main` branch:
-   ```bash
-   git init
-   git add .
-   git commit -m "AirScape: CSE326 Internet Programming Project"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/AirScape.git
-   git push -u origin main
-   ```
-3. In your GitHub repository:
-   - Go to **Settings** > **Pages** (under the "Code and automation" section).
-   - Under **Build and deployment > Source**, select **Deploy from a branch**.
-   - Under **Branch**, select `main` and `/ (root)`, then click **Save**.
-4. In about 1 minute, your site will be live at:
-   `https://<your-username>.github.io/AirScape/`
+1. Push `index.html`, `style.css`, `script.js`, and `README.md` to your GitHub repository on branch `main`.
+2. Go to **Settings > Pages**.
+3. Under **Build and deployment > Source**, select **Deploy from a branch**.
+4. Choose `main` branch and `/ (root)` folder, then click **Save**.
+5. Your site will be live at `https://<your-username>.github.io/<repo-name>/`.
 
 ---
 
-## 📱 7. Responsive Breakpoints Tested
+## 7. Responsive Breakpoints Tested
 
 - **Mobile (360px - 480px):** Single-column layout, touch targets $\ge 44\text{px}$, accessible mobile dropdowns for comparison, horizontal scrolling hourly forecast.
 - **Tablet (768px):** 2-column overview grid, side-by-side forecast highlights.
@@ -167,6 +155,6 @@ Because AirScape uses pure client-side web technologies:
 
 ---
 
-## 🛡️ 8. Health & Legal Disclaimer
+## 8. Health & Legal Disclaimer
 
 *Notice:* AirScape generates health recommendations based on general environmental pollution thresholds (US AQI and WHO particulate guidelines). This web application is created for academic educational purposes and does not constitute medical advice or clinical diagnosis. Users experiencing persistent respiratory discomfort should seek immediate medical consultation.

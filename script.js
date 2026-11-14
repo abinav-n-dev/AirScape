@@ -330,7 +330,7 @@ function updateDashboard(city, aqi, pm25, pm10, hourlyArray, isFallback) {
   // Highlight active quick chip
   updateActiveCityChip(city);
 
-  // Update star button state (saved vs not saved)
+  // Update star/save button state
   updateFavButtonState();
 
   // Save last selected city to localStorage
@@ -357,13 +357,12 @@ function renderForecast(hourlyArray) {
   if (!hoursData || hoursData.length === 0) {
     hoursData = [];
     for (let i = 0; i < 24; i++) {
-      // Simulate daytime dip and evening rise
       const variation = Math.sin((i - 6) / 24 * Math.PI * 2) * 25;
       hoursData.push(Math.max(15, Math.round(currentAqi + variation)));
     }
   }
 
-  // Find max AQI to scale the visual bar heights (minimum scale 200, maximum 500)
+  // Find max AQI to scale the visual bar heights
   let maxAqi = Math.max(...hoursData, 200);
 
   // Variables to find best hour (between 6 AM and 9 PM: index 6 to index 21)
@@ -374,12 +373,11 @@ function renderForecast(hourlyArray) {
   let highestAqi = -Infinity;
   let worstHourIndex = 0;
 
-  // Loop through all 24 hours (Unit V: Loops and Dynamic Content Generation)
+  // Loop through all 24 hours
   for (let i = 0; i < 24; i++) {
     const aqi = Math.round(hoursData[i]);
     const cat = getAqiCategory(aqi);
 
-    // Format hour label (e.g. 0 -> 12 AM, 6 -> 6 AM, 12 -> 12 PM, 15 -> 3 PM)
     const period = i >= 12 ? "PM" : "AM";
     const displayHour = i % 12 === 0 ? 12 : i % 12;
     const timeLabel = `${displayHour} ${period}`;
@@ -398,10 +396,8 @@ function renderForecast(hourlyArray) {
       worstHourIndex = i;
     }
 
-    // Calculate bar height percentage (clamped between 15% and 95%)
     const heightPercent = Math.min(95, Math.max(15, (aqi / maxAqi) * 90));
 
-    // Create the column element
     const col = document.createElement("div");
     col.className = "hour-column";
     col.title = `${timeLabel}: AQI ${aqi} (${cat.name})`;
@@ -427,7 +423,7 @@ function renderForecast(hourlyArray) {
     bestValElem.textContent = `${bestTimeStr} (AQI ${lowestDayAqi})`;
   }
   if (bestDescElem) {
-    bestDescElem.textContent = `Cleanest daytime window (${bestCat.name}). Ideal for groceries or travel.`;
+    bestDescElem.textContent = `Cleanest daytime window (${bestCat.name}). Ideal for groceries or outdoor travel.`;
   }
 
   // Update Worst Hour card
@@ -453,14 +449,12 @@ async function fetchCityData(cityName) {
   const statusBanner = document.getElementById("status-banner");
   const statusText = document.getElementById("status-text");
 
-  // Show loading message
   if (statusBanner && statusText) {
     statusBanner.className = "status-banner";
     statusText.textContent = `Finding your air for ${cityName}...`;
   }
 
   try {
-    // 1. Geocoding API: lookup latitude and longitude by city name
     const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1`;
     const geoResponse = await fetch(geoUrl);
 
@@ -479,7 +473,6 @@ async function fetchCityData(cityName) {
     const lon = firstResult.longitude;
     const resolvedName = firstResult.name;
 
-    // 2. Air Quality API: lookup AQI, PM2.5, PM10, and hourly forecast
     const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi,pm10,pm2_5&hourly=us_aqi&forecast_days=1&timezone=auto`;
     const aqiResponse = await fetch(aqiUrl);
 
@@ -498,7 +491,6 @@ async function fetchCityData(cityName) {
     const livePm10 = aqiData.current.pm10 || 25.0;
     const hourlyAqi = aqiData.hourly && aqiData.hourly.us_aqi ? aqiData.hourly.us_aqi : [];
 
-    // Success! Update dashboard with live data
     updateDashboard(resolvedName, liveAqi, livePm25, livePm10, hourlyAqi, false);
 
     if (statusBanner && statusText) {
@@ -509,7 +501,6 @@ async function fetchCityData(cityName) {
       }, 3500);
     }
   } catch (error) {
-    // Fallback mode if offline or API fails
     console.warn("API request failed or offline:", error.message);
     loadFallbackCity(cityName);
   }
@@ -517,14 +508,12 @@ async function fetchCityData(cityName) {
 
 // -----------------------------------------------------------------------------
 // Function 6: loadFallbackCity(cityName)
-// Purpose: Loads hardcoded sample data for one of the 10 Indian cities so the
-// web app never stays blank.
+// Purpose: Loads hardcoded sample data for one of the 10 Indian cities.
 // -----------------------------------------------------------------------------
 function loadFallbackCity(cityName) {
   const statusBanner = document.getElementById("status-banner");
   const statusText = document.getElementById("status-text");
 
-  // Normalize city search for match in fallback database
   let matchedKey = null;
   const cleanInput = cityName.trim().toLowerCase();
 
@@ -535,7 +524,6 @@ function loadFallbackCity(cityName) {
     }
   }
 
-  // Default to Delhi if input not among the 10 cities
   if (!matchedKey) {
     matchedKey = "Delhi";
   }
@@ -551,7 +539,7 @@ function loadFallbackCity(cityName) {
 
 // -----------------------------------------------------------------------------
 // Function 7: fetchByCoordinates(lat, lon)
-// Purpose: Geolocation API helper to fetch live air quality at user's GPS coords.
+// Purpose: Geolocation API helper to fetch live air quality at GPS coords.
 // -----------------------------------------------------------------------------
 async function fetchByCoordinates(lat, lon) {
   const statusBanner = document.getElementById("status-banner");
@@ -607,24 +595,14 @@ function setupGeolocation() {
         const lon = position.coords.longitude;
         fetchByCoordinates(lat, lon);
         geoBtn.disabled = false;
-        geoBtn.innerHTML = `
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-          </svg>
-          Use My Location
-        `;
+        geoBtn.textContent = "Use My Location";
       },
       (error) => {
         console.warn("Geolocation error code:", error.code, error.message);
         alert("Unable to retrieve your location. Showing default city (Delhi).");
         loadFallbackCity("Delhi");
         geoBtn.disabled = false;
-        geoBtn.innerHTML = `
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-          </svg>
-          Use My Location
-        `;
+        geoBtn.textContent = "Use My Location";
       },
       { timeout: 8000 }
     );
@@ -674,7 +652,7 @@ function updateActiveCityChip(cityName) {
 
 // -----------------------------------------------------------------------------
 // Function 11: setupSearchForm()
-// Purpose: Handles text search input submission and validation.
+// Purpose: Handles text search input submission.
 // -----------------------------------------------------------------------------
 function setupSearchForm() {
   const searchForm = document.getElementById("search-form");
@@ -717,7 +695,7 @@ function loadFromLocalStorage(key, defaultValue) {
 
 // -----------------------------------------------------------------------------
 // Function 13: setupFavorites()
-// Purpose: Allows user to star/save cities to localStorage and recall them easily.
+// Purpose: Allows user to save cities to localStorage and recall them easily.
 // -----------------------------------------------------------------------------
 function setupFavorites() {
   const favBtn = document.getElementById("fav-btn");
@@ -732,10 +710,8 @@ function setupFavorites() {
     const index = savedCities.indexOf(city);
 
     if (index === -1) {
-      // Add to favorites
       savedCities.push(city);
     } else {
-      // Remove from favorites
       savedCities.splice(index, 1);
     }
 
@@ -747,15 +723,12 @@ function setupFavorites() {
 
 function updateFavButtonState() {
   const favBtnText = document.getElementById("fav-btn-text");
-  const favIcon = document.getElementById("fav-icon");
-  if (!favBtnText || !favIcon) return;
+  if (!favBtnText) return;
 
   if (savedCities.includes(currentCity)) {
     favBtnText.textContent = "Saved";
-    favIcon.textContent = "⭐";
   } else {
     favBtnText.textContent = "Save City";
-    favIcon.textContent = "☆";
   }
 }
 
@@ -765,7 +738,7 @@ function renderFavoritesList() {
   favContainer.innerHTML = "";
 
   if (savedCities.length === 0) {
-    favContainer.innerHTML = `<span class="empty-fav-msg">No saved cities yet. Click "Save City" above!</span>`;
+    favContainer.innerHTML = `<span class="empty-fav-msg">No saved cities yet. Click "Save City" above.</span>`;
     return;
   }
 
@@ -774,7 +747,7 @@ function renderFavoritesList() {
     const chip = document.createElement("button");
     chip.type = "button";
     chip.className = "fav-chip";
-    chip.innerHTML = `⭐ ${cityName}`;
+    chip.textContent = cityName;
     chip.addEventListener("click", () => {
       fetchCityData(cityName);
     });
@@ -798,12 +771,10 @@ function setupHealthProfileForm() {
 
   if (!form || !hoursSlider || !hoursDisplay) return;
 
-  // Live slider number feedback
   hoursSlider.addEventListener("input", () => {
     hoursDisplay.textContent = `${hoursSlider.value} hours`;
   });
 
-  // Load saved profile values from localStorage
   const savedProfile = loadFromLocalStorage("userProfile", null);
   if (savedProfile) {
     if (nameInput && savedProfile.nickname) nameInput.value = savedProfile.nickname;
@@ -818,27 +789,22 @@ function setupHealthProfileForm() {
     }
   }
 
-  // Handle Form Submission with Validation
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     let isValid = true;
 
-    // Reset error messages
     if (nameError) nameError.textContent = "";
     if (ageError) ageError.textContent = "";
 
     const nickname = nameInput.value.trim();
     const ageValue = parseInt(ageInput.value, 10);
 
-    // Regex Validation for Nickname (Unit V: Regular Expressions)
-    // Optional, but if provided must only contain letters/spaces, 2 to 20 chars
     const nameRegex = /^[a-zA-Z\s]{2,20}$/;
     if (nickname.length > 0 && !nameRegex.test(nickname)) {
       if (nameError) nameError.textContent = "Nickname must be 2-20 characters (letters only).";
       isValid = false;
     }
 
-    // Number Range Validation for Age
     if (isNaN(ageValue) || ageValue < 1 || ageValue > 120) {
       if (ageError) ageError.textContent = "Please enter a valid age between 1 and 120.";
       isValid = false;
@@ -846,10 +812,8 @@ function setupHealthProfileForm() {
 
     if (!isValid) return;
 
-    // Get breathing sensitivity radio choice
     const sensitivityChoice = document.querySelector('input[name="sensitivity"]:checked').value;
 
-    // Save profile to localStorage
     const profileData = {
       nickname: nickname,
       age: ageValue,
@@ -858,7 +822,6 @@ function setupHealthProfileForm() {
     };
     saveToLocalStorage("userProfile", profileData);
 
-    // Run Advice Engine
     calculateHealthAdvice();
   });
 }
@@ -868,7 +831,7 @@ function setupHealthProfileForm() {
 // Purpose: Plain if/else Advice Engine.
 // - Effective AQI = real AQI * 1.35 if asthma/allergies, and * 1.2 if age < 12 or 60+.
 // - Pick risk level: Low, Mild, Elevated, High, Very High, Severe.
-// - Gives actionable points based on risk, hours outdoors, and forecast best hour.
+// - Output clean, readable advice list (standard student format).
 // -----------------------------------------------------------------------------
 function calculateHealthAdvice() {
   const nameInput = document.getElementById("profile-name");
@@ -882,7 +845,6 @@ function calculateHealthAdvice() {
 
   if (!effectiveAqiElem || !riskBadge || !adviceList) return;
 
-  // Read inputs or use sensible defaults
   const nickname = nameInput && nameInput.value.trim().length > 0 ? nameInput.value.trim() : "Guest";
   const age = ageInput && !isNaN(parseInt(ageInput.value, 10)) ? parseInt(ageInput.value, 10) : 21;
   const hoursOutdoors = hoursSlider ? parseFloat(hoursSlider.value) : 2;
@@ -893,7 +855,7 @@ function calculateHealthAdvice() {
     userGreeting.textContent = `For ${nickname} (${age} yrs)`;
   }
 
-  // 1. Calculate Multiplier & Effective AQI
+  // Calculate Multiplier & Effective AQI
   let multiplier = 1.0;
   let multiplierReasons = [];
 
@@ -910,7 +872,7 @@ function calculateHealthAdvice() {
   const effectiveAqi = Math.round(currentAqi * multiplier);
   effectiveAqiElem.textContent = effectiveAqi;
 
-  // 2. Determine Risk Level based on Effective AQI
+  // Determine Risk Level based on Effective AQI
   let riskLevel = "";
   let riskBadgeClass = "";
 
@@ -937,123 +899,60 @@ function calculateHealthAdvice() {
   riskBadge.textContent = riskLevel;
   riskBadge.className = `risk-badge ${riskBadgeClass}`;
 
-  // Explanation text
   if (multiplierReasons.length > 0) {
     effectiveExplanation.textContent = `Base AQI ${currentAqi} scaled to ${effectiveAqi} due to ${multiplierReasons.join(" & ")}.`;
   } else {
     effectiveExplanation.textContent = `Standard exposure calculation based on base AQI of ${currentAqi}.`;
   }
 
-  // 3. Generate Tailored Advice Points (Plain if/else logic)
+  // Generate Tailored Advice Points (Plain text strings)
   const adviceItems = [];
 
-  // Advice based on risk level
   if (effectiveAqi <= 50) {
-    adviceItems.push({
-      icon: "🌿",
-      text: "Air quality is ideal. You can safely jog, commute, and enjoy long outdoor sessions."
-    });
-    adviceItems.push({
-      icon: "🪟",
-      text: "Open home and office windows for natural ventilation and fresh airflow."
-    });
+    adviceItems.push("Air quality is ideal. You can safely exercise, commute, and spend time outdoors.");
+    adviceItems.push("Open home and office windows for natural ventilation.");
   } else if (effectiveAqi <= 100) {
-    adviceItems.push({
-      icon: "🌤️",
-      text: "Air quality is acceptable for most people. Outdoor exercise is safe."
-    });
+    adviceItems.push("Air quality is acceptable for most people. Outdoor exercise is safe.");
     if (isSensitive) {
-      adviceItems.push({
-        icon: "👀",
-        text: "Unusually sensitive individuals should monitor for throat or eye irritation."
-      });
+      adviceItems.push("Unusually sensitive individuals should watch for minor coughing or eye irritation.");
     }
   } else if (effectiveAqi <= 150) {
-    adviceItems.push({
-      icon: "⏱️",
-      text: "Limit prolonged outdoor physical exertion. Take frequent indoor recovery breaks."
-    });
-    adviceItems.push({
-      icon: "😷",
-      text: "Consider a lightweight filtration mask if traveling in heavy traffic or dusty roadside zones."
-    });
+    adviceItems.push("Limit prolonged outdoor physical exertion. Take frequent indoor breaks.");
+    adviceItems.push("Consider wearing a filtration mask if traveling in dense traffic or dusty areas.");
   } else if (effectiveAqi <= 200) {
-    adviceItems.push({
-      icon: "😷",
-      text: "Wear an <strong>N95 or FFP2 respirator mask</strong> whenever stepping outside."
-    });
-    adviceItems.push({
-      icon: "🚪",
-      text: "Keep exterior windows and balcony doors shut to prevent outdoor particulate ingress."
-    });
-    adviceItems.push({
-      icon: "🏋️",
-      text: "Move high-intensity workouts and cardio indoors."
-    });
+    adviceItems.push("Wear a well-fitted N95 or FFP2 respirator mask whenever going outdoors.");
+    adviceItems.push("Keep windows and exterior doors shut to prevent pollution from entering indoors.");
+    adviceItems.push("Shift intense workouts and cardio exercises indoors.");
   } else if (effectiveAqi <= 300) {
-    adviceItems.push({
-      icon: "🛑",
-      text: "<strong>Avoid unnecessary outdoor travel.</strong> Particulate levels are hazardous."
-    });
-    adviceItems.push({
-      icon: "😷",
-      text: "An N95 mask is strictly necessary for any outdoor exposure."
-    });
-    adviceItems.push({
-      icon: "🌀",
-      text: "Run an indoor HEPA air purifier and wipe surfaces with a damp cloth instead of dry sweeping."
-    });
+    adviceItems.push("Avoid unnecessary outdoor travel. Particulate pollution is very high.");
+    adviceItems.push("An N95 mask is strictly necessary for any outdoor exposure.");
+    adviceItems.push("Run an indoor air purifier if available, and use wet mopping rather than dry sweeping.");
   } else {
-    adviceItems.push({
-      icon: "🚨",
-      text: "<strong>Emergency Air Warning:</strong> Hazardous atmospheric pollution. Seal all room gaps."
-    });
-    adviceItems.push({
-      icon: "🏠",
-      text: "Stay strictly indoors. Do not exercise even indoors if air infiltration is noticeable."
-    });
+    adviceItems.push("Hazardous air warning: Stay strictly indoors and seal door and window gaps.");
+    adviceItems.push("Avoid all strenuous physical exertion, even indoors.");
   }
 
-  // Advice based on hours spent outdoors
   if (hoursOutdoors >= 3 && effectiveAqi > 100) {
-    adviceItems.push({
-      icon: "⏳",
-      text: `You have planned <strong>${hoursOutdoors} hours outdoors</strong> today. Your cumulative toxic dose will be high—try to schedule remote tasks or take indoor pauses every 45 minutes.`
-    });
+    adviceItems.push(`You planned ${hoursOutdoors} hours outdoors today. Long cumulative exposure increases pollutant absorption; try to take indoor breaks every 45 minutes.`);
   } else if (hoursOutdoors <= 1) {
-    adviceItems.push({
-      icon: "🛡️",
-      text: "Brief outdoor exposure (< 1 hour) keeps your cumulative pollution intake relatively minimal."
-    });
+    adviceItems.push("Brief outdoor exposure (1 hour or less) keeps your cumulative pollution intake low.");
   }
 
-  // Advice based on forecast best hour
   const bestHourText = document.getElementById("best-hour-val");
   if (bestHourText && bestHourText.textContent && !bestHourText.textContent.includes("Calculating")) {
-    adviceItems.push({
-      icon: "⏰",
-      text: `If you must run errands, schedule them around <strong>${bestHourText.textContent}</strong> when pollution is lowest.`
-    });
+    adviceItems.push(`If you need to step out, try to plan around ${bestHourText.textContent} when air quality is relatively best.`);
   }
 
-  // Advice for sensitive users
   if (isSensitive) {
-    adviceItems.push({
-      icon: "💊",
-      text: "Keep your prescribed <strong>inhalers and allergy medicines</strong> within immediate reach."
-    });
+    adviceItems.push("Keep your prescribed inhaler and allergy medicines readily accessible.");
   }
 
-  // Render advice checklist
+  // Render advice checklist as clean semantic <li> elements
   adviceList.innerHTML = "";
   for (let i = 0; i < adviceItems.length; i++) {
-    const item = adviceItems[i];
     const li = document.createElement("li");
     li.className = "advice-item";
-    li.innerHTML = `
-      <span class="advice-bullet">${item.icon}</span>
-      <span>${item.text}</span>
-    `;
+    li.textContent = adviceItems[i];
     adviceList.appendChild(li);
   }
 }
@@ -1075,7 +974,6 @@ function setupDragAndDropCompare() {
   pool.innerHTML = "";
   const cityKeys = Object.keys(fallbackCities);
 
-  // Populate Draggable Chips in the Pool
   for (let i = 0; i < cityKeys.length; i++) {
     const cityName = cityKeys[i];
     const chip = document.createElement("div");
@@ -1084,21 +982,18 @@ function setupDragAndDropCompare() {
     chip.textContent = cityName;
     chip.dataset.city = cityName;
 
-    // Drag Start Event
     chip.addEventListener("dragstart", (e) => {
       chip.classList.add("dragging");
       e.dataTransfer.setData("text/plain", cityName);
       e.dataTransfer.effectAllowed = "copy";
     });
 
-    // Drag End Event
     chip.addEventListener("dragend", () => {
       chip.classList.remove("dragging");
     });
 
     pool.appendChild(chip);
 
-    // Also populate mobile select options
     if (selectA) {
       const optA = document.createElement("option");
       optA.value = cityName;
@@ -1113,21 +1008,17 @@ function setupDragAndDropCompare() {
     }
   }
 
-  // Setup Dropzone Event Listeners
   [dropzoneA, dropzoneB].forEach((dropzone) => {
-    // Drag Over
     dropzone.addEventListener("dragover", (e) => {
       e.preventDefault();
       e.dataTransfer.dropEffect = "copy";
       dropzone.classList.add("drag-over");
     });
 
-    // Drag Leave
     dropzone.addEventListener("dragleave", () => {
       dropzone.classList.remove("drag-over");
     });
 
-    // Drop
     dropzone.addEventListener("drop", (e) => {
       e.preventDefault();
       dropzone.classList.remove("drag-over");
@@ -1144,7 +1035,6 @@ function setupDragAndDropCompare() {
     });
   });
 
-  // Mobile Select Dropdown Handlers
   if (selectA) {
     selectA.addEventListener("change", (e) => {
       if (e.target.value) setComparisonCity("A", e.target.value);
@@ -1156,7 +1046,6 @@ function setupDragAndDropCompare() {
     });
   }
 
-  // Pre-populate with Delhi vs Shimla as an impressive starter example!
   setComparisonCity("A", "Delhi");
   setComparisonCity("B", "Shimla");
   if (selectA) selectA.value = "Delhi";
@@ -1222,10 +1111,8 @@ function renderComparisonVerdict() {
     cleanerCity = comparisonCityA;
   }
 
-  // Calculate ratio
   const ratio = cleanerCity && cleanerCity.aqi > 0 ? (worseCity.aqi / cleanerCity.aqi).toFixed(1) : 1;
 
-  // Calculate percentage width for visual bar
   const total = comparisonCityA.aqi + comparisonCityB.aqi;
   const percentA = total > 0 ? Math.round((comparisonCityA.aqi / total) * 100) : 50;
   const percentB = 100 - percentA;
@@ -1235,14 +1122,14 @@ function renderComparisonVerdict() {
   if (worseCity === null) {
     verdictMarkup = `
       <div class="comparison-analysis">
-        <h4 class="verdict-title">Identical Air Quality!</h4>
+        <h4 class="verdict-title">Identical Air Quality</h4>
         <p class="verdict-text">Both ${comparisonCityA.name} and ${comparisonCityB.name} have an identical AQI of ${comparisonCityA.aqi}.</p>
       </div>
     `;
   } else {
     verdictMarkup = `
       <div class="comparison-analysis">
-        <h4 class="verdict-title">Comparison Result:</h4>
+        <h4 class="verdict-title">Comparison Result</h4>
         <p class="verdict-text">
           <strong>${worseCity.name}'s air is worse than ${cleanerCity.name} by ${diff} AQI points</strong> (${ratio}x higher pollution).
         </p>
@@ -1279,7 +1166,6 @@ function setupNavigation() {
       menuToggle.setAttribute("aria-expanded", isOpen);
     });
 
-    // Close menu when a link is clicked on mobile
     navLinks.forEach((link) => {
       link.addEventListener("click", () => {
         navbar.classList.remove("open");
@@ -1288,7 +1174,6 @@ function setupNavigation() {
     });
   }
 
-  // Highlight active link based on scroll position
   window.addEventListener("scroll", () => {
     const sections = document.querySelectorAll("section");
     let currentId = "home";
@@ -1323,7 +1208,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupHealthProfileForm();
   setupDragAndDropCompare();
 
-  // Load last searched city or default to Delhi
   const lastCity = loadFromLocalStorage("lastCity", "Delhi");
   fetchCityData(lastCity);
 });

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="AirScape - Real-Time Air Quality & Scene Visualizer for CSE326 Internet Programming">
   <title>AirScape - Real-Time Air Quality & Visual Scene</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2'/><path d='M19.6 14.7a2 2 0 1 1-1.6 3.3H2'/><path d='M15.8 3.7a2 2 0 1 1 1.7 3.3H2'/></svg>">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,18 +16,12 @@
     <div class="nav-container">
       <div class="brand">
         <a href="#home" class="logo-link">
-          <!-- Inline SVG Icon for wind / clean air -->
-          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"></path>
-            <path d="M19.6 14.7a2 2 0 1 1-1.6 3.3H2"></path>
-            <path d="M15.8 3.7a2 2 0 1 1 1.7 3.3H2"></path>
-          </svg>
           <span class="brand-title">AirScape</span>
         </a>
-        <span class="project-tag">CSE326 Project</span>
+        <span class="project-tag">CSE326</span>
       </div>
 
-      <!-- Mobile Hamburger Toggle Button -->
+      <!-- Mobile Menu Toggle Button -->
       <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -77,25 +70,15 @@
               autocomplete="off" 
               required
             >
-            <button type="submit" id="search-btn" class="btn btn-primary">
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              Search
-            </button>
+            <button type="submit" id="search-btn" class="btn btn-primary">Search</button>
           </div>
         </form>
 
         <div class="action-buttons">
           <button type="button" id="geo-btn" class="btn btn-secondary" title="Detect air quality at your current GPS location">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-            </svg>
             Use My Location
           </button>
           <button type="button" id="fav-btn" class="btn btn-outline" title="Save current city to your favorites">
-            <span id="fav-icon">⭐</span>
             <span id="fav-btn-text">Save City</span>
           </button>
         </div>
@@ -111,9 +94,9 @@
 
       <!-- User Saved Favourites Row -->
       <div id="favorites-section" class="favorites-block">
-        <span class="quick-label">Saved Favourites:</span>
+        <span class="quick-label">Saved Cities:</span>
         <div id="favorites-list" class="fav-chips">
-          <span class="empty-fav-msg">No saved cities yet. Click "Save City" above!</span>
+          <span class="empty-fav-msg">No saved cities yet. Click "Save City" above.</span>
         </div>
       </div>
 
@@ -209,21 +192,15 @@
       <!-- Activity Planning Highlights: Best & Worst Hours -->
       <div class="forecast-highlights-grid">
         <div class="highlight-card best-time-card">
-          <div class="highlight-icon">🌤️</div>
-          <div>
-            <span class="highlight-label">Best Time to Step Outdoors (6 AM – 9 PM)</span>
-            <h3 id="best-hour-val" class="highlight-value">Calculating...</h3>
-            <p id="best-hour-desc" class="highlight-sub">Optimal window with lowest daily AQI.</p>
-          </div>
+          <span class="highlight-label">Best Time to Step Outdoors (6 AM – 9 PM)</span>
+          <h3 id="best-hour-val" class="highlight-value">Calculating...</h3>
+          <p id="best-hour-desc" class="highlight-sub">Optimal window with lowest daily AQI.</p>
         </div>
 
         <div class="highlight-card worst-time-card">
-          <div class="highlight-icon">⚠️</div>
-          <div>
-            <span class="highlight-label">Peak Pollution Window (Worst Hour)</span>
-            <h3 id="worst-hour-val" class="highlight-value">Calculating...</h3>
-            <p id="worst-hour-desc" class="highlight-sub">Highest daily AQI; avoid strenuous outdoor exercise.</p>
-          </div>
+          <span class="highlight-label">Peak Pollution Window (Worst Hour)</span>
+          <h3 id="worst-hour-val" class="highlight-value">Calculating...</h3>
+          <p id="worst-hour-desc" class="highlight-sub">Highest daily AQI; avoid strenuous outdoor exercise.</p>
         </div>
       </div>
 
@@ -371,30 +348,16 @@
           <div class="advice-checklist-wrapper">
             <h4 class="advice-list-title">Recommended Safety Precautions:</h4>
             <ul id="advice-list" class="advice-checklist">
-              <li class="advice-item">
-                <span class="advice-bullet">😷</span>
-                <span>Wear a well-fitted <strong>N95 or FFP2 mask</strong> if spending extended time outdoors.</span>
-              </li>
-              <li class="advice-item">
-                <span class="advice-bullet">🏠</span>
-                <span>Keep doors and windows sealed during peak pollution hours. Run an air purifier if available.</span>
-              </li>
-              <li class="advice-item">
-                <span class="advice-bullet">🏃</span>
-                <span>Shift intense cardiovascular exercises indoors (yoga, bodyweight exercises).</span>
-              </li>
+              <li class="advice-item">Wear a well-fitted N95 or FFP2 mask if spending extended time outdoors.</li>
+              <li class="advice-item">Keep doors and windows sealed during peak pollution hours.</li>
+              <li class="advice-item">Shift intense cardiovascular exercises indoors.</li>
             </ul>
           </div>
 
-          <!-- Medical Disclaimer Note (Required by Polish Rules) -->
+          <!-- Medical Disclaimer Note -->
           <div class="medical-disclaimer">
-            <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="12"></line>
-              <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
             <p>
-              <strong>Important Notice:</strong> This guidance is generated for educational and preventive awareness based on environmental air benchmarks. It does not constitute clinical medical diagnosis. Please consult a qualified doctor if you experience persistent symptoms.
+              <strong>Note:</strong> This guidance is generated for educational awareness based on environmental air benchmarks. It does not constitute medical advice. Please consult a qualified doctor if you experience persistent symptoms.
             </p>
           </div>
         </div>
@@ -417,7 +380,7 @@
           <div id="drag-source-pool" class="drag-pool" aria-label="Available cities to drag">
             <!-- Populated with draggable="true" chips by JavaScript -->
           </div>
-          <p class="touch-hint">On mobile touchscreens? Use the dropdown selectors inside each box below!</p>
+          <p class="touch-hint">On mobile touchscreens? Use the dropdown selectors inside each box below.</p>
         </div>
 
         <!-- The Two Drop Target Zones -->
@@ -434,14 +397,13 @@
             
             <div id="content-city-a" class="dropzone-content">
               <div class="drop-placeholder">
-                <span class="drop-icon">📥</span>
-                <p>Drag City Here<br><small>or pick from dropdown above</small></p>
+                <p>Drag city here<br><small>or pick from dropdown</small></p>
               </div>
             </div>
           </div>
 
           <!-- VS Indicator -->
-          <div class="vs-circle" aria-hidden="true">VS</div>
+          <div class="vs-circle" aria-hidden="true">vs</div>
 
           <!-- Box B Drop Target -->
           <div id="dropzone-b" class="dropzone" data-slot="B" tabindex="0" role="region" aria-label="City B Comparison Drop Zone">
@@ -454,8 +416,7 @@
 
             <div id="content-city-b" class="dropzone-content">
               <div class="drop-placeholder">
-                <span class="drop-icon">📥</span>
-                <p>Drag City Here<br><small>or pick from dropdown above</small></p>
+                <p>Drag city here<br><small>or pick from dropdown</small></p>
               </div>
             </div>
           </div>
@@ -526,7 +487,7 @@
             <h4>Unit I: HTML Fundamentals</h4>
             <ul>
               <li>Semantic document structure</li>
-              <li>Inline SVG wind, search, and skyline icons</li>
+              <li>SVG graphics for landscape skyline</li>
               <li>Accessible meta viewport & SEO descriptions</li>
             </ul>
           </div>
@@ -588,7 +549,7 @@
         <p class="footer-desc">Built with pure HTML5, CSS3, and Vanilla JavaScript. No frameworks or external dependencies.</p>
       </div>
       <div class="footer-right">
-        <a href="#home" class="back-to-top-btn" title="Back to top of page">↑ Back to Top</a>
+        <a href="#home" class="back-to-top-btn" title="Back to top of page">Back to Top</a>
       </div>
     </div>
   </footer>
