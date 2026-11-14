@@ -571,14 +571,21 @@
             <h4 class="media-subtitle">Audio Guide & Ambient Soundscape (HTML5 Audio)</h4>
             <p class="media-caption">Listen to our atmospheric soundscape and environmental guide.</p>
             
-            <audio id="airscape-audio" class="audio-player" controls preload="metadata">
+            <audio id="airscape-audio" class="audio-player" controls preload="auto">
+              <source src="ambient-sound.mp3" type="audio/mpeg">
               <source src="ambient-sound.wav" type="audio/wav">
               Your browser does not support the audio element.
             </audio>
 
-            <div class="audio-status-box">
-              <span class="audio-status-label">Audio Event Listener:</span>
-              <span id="audio-event-status" class="audio-status-value">Ready (Click play to listen)</span>
+            <div class="audio-controls-row" style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem;">
+              <button type="button" id="audio-toggle-btn" class="btn btn-secondary" style="min-height: 38px; padding: 0.4rem 0.9rem; font-size: 0.85rem;">
+                Play Soundscape
+              </button>
+            </div>
+
+            <div class="audio-status-box" style="margin-top: 0.75rem;">
+              <span class="audio-status-label">Status:</span>
+              <span id="audio-event-status" class="audio-status-value">Ready (Click Play)</span>
             </div>
           </div>
         </div>

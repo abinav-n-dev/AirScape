@@ -1213,35 +1213,94 @@ function renderComparisonVerdict() {
 function setupAudioEvents() {
   const audio = document.getElementById("airscape-audio");
   const statusElem = document.getElementById("audio-event-status");
+  const toggleBtn = document.getElementById("audio-toggle-btn");
 
-  if (!audio || !statusElem) return;
+  if (!audio) return;
+
+  // Toggle button handler
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play().then(() => {
+          if (toggleBtn) toggleBtn.textContent = "Pause Soundscape";
+        }).catch((err) => {
+          console.warn("Audio play() blocked by browser policy, using Web Audio synthesizer:", err);
+          playSynthesizedWind();
+        });
+      } else {
+        audio.pause();
+        if (toggleBtn) toggleBtn.textContent = "Play Soundscape";
+      }
+    });
+  }
 
   audio.addEventListener("canplay", () => {
-    if (audio.paused && audio.currentTime === 0) {
-      statusElem.textContent = "Audio ready (Click play to listen)";
+    if (audio.paused && audio.currentTime === 0 && statusElem) {
+      statusElem.textContent = "Ready (Click Play)";
     }
   });
 
   audio.addEventListener("play", () => {
-    statusElem.textContent = "Playing atmospheric audio...";
+    if (statusElem) statusElem.textContent = "Playing atmospheric audio...";
+    if (toggleBtn) toggleBtn.textContent = "Pause Soundscape";
   });
 
   audio.addEventListener("pause", () => {
-    statusElem.textContent = "Paused";
+    if (statusElem) statusElem.textContent = "Paused";
+    if (toggleBtn) toggleBtn.textContent = "Play Soundscape";
   });
 
   audio.addEventListener("timeupdate", () => {
-    const sec = Math.floor(audio.currentTime);
-    statusElem.textContent = `Playing (${sec}s / 6s)`;
+    if (statusElem) {
+      const sec = Math.floor(audio.currentTime);
+      statusElem.textContent = `Playing (${sec}s / 6s)`;
+    }
   });
 
   audio.addEventListener("ended", () => {
-    statusElem.textContent = "Completed playback";
+    if (statusElem) statusElem.textContent = "Completed playback";
+    if (toggleBtn) toggleBtn.textContent = "Play Soundscape";
   });
 
   audio.addEventListener("error", () => {
-    statusElem.textContent = "Audio file unavailable";
+    if (statusElem) statusElem.textContent = "Using synthesized audio";
   });
+}
+
+// Fallback audio synthesizer using native Web Audio API
+function playSynthesizedWind() {
+  const statusElem = document.getElementById("audio-event-status");
+  const toggleBtn = document.getElementById("audio-toggle-btn");
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(220, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(330, ctx.currentTime + 3);
+
+    gain.gain.setValueAtTime(0.01, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + 1);
+    gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 4);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start();
+    osc.stop(ctx.currentTime + 4);
+
+    if (statusElem) statusElem.textContent = "Playing synthesized breeze...";
+    if (toggleBtn) toggleBtn.textContent = "Playing...";
+    setTimeout(() => {
+      if (statusElem) statusElem.textContent = "Playback complete";
+      if (toggleBtn) toggleBtn.textContent = "Play Soundscape";
+    }, 4000);
+  } catch (e) {
+    console.warn("Web Audio not available:", e);
+  }
 }
 
 // -----------------------------------------------------------------------------
