@@ -187,7 +187,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   4. Status Banner
+   4. Status Banner & Session Storage Badge (Unit V)
    -------------------------------------------------------------------------- */
 .status-banner {
   background-color: #e0f2fe;
@@ -197,7 +197,22 @@ body {
   font-size: 0.88rem;
   font-weight: 500;
   border-bottom: 1px solid #bae6fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+.session-badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  background-color: rgba(2, 132, 199, 0.15);
+  color: #0369a1;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .status-banner.offline {
@@ -445,9 +460,23 @@ body {
   border-radius: var(--radius-full);
 }
 
+/* Unit III: CSS Animations (@keyframes) */
+@keyframes pulse-live {
+  0% {
+    box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(21, 128, 61, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(21, 128, 61, 0);
+  }
+}
+
 .badge-live {
   background-color: #dcfce7;
   color: #15803d;
+  animation: pulse-live 2.5s infinite;
 }
 
 .badge-fallback {
@@ -715,6 +744,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-bottom: 1.25rem;
 }
 
@@ -841,6 +872,52 @@ body {
   height: 10px;
   border-radius: 2px;
   background-color: var(--chip-color);
+}
+
+/* --------------------------------------------------------------------------
+   Unit II: Tables and Data Representation
+   -------------------------------------------------------------------------- */
+.table-card {
+  margin-top: 1.5rem;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 0.75rem;
+}
+
+.aqi-reference-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+  min-width: 600px;
+}
+
+.aqi-reference-table caption {
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  caption-side: top;
+}
+
+.aqi-reference-table th,
+.aqi-reference-table td {
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.aqi-reference-table th {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.aqi-reference-table tr:hover {
+  background-color: #f8fafc;
 }
 
 /* --------------------------------------------------------------------------
@@ -1298,6 +1375,89 @@ input[type="range"] {
 }
 
 /* --------------------------------------------------------------------------
+   Unit I & Unit V: Multimedia Elements (Audio, Video, Iframe)
+   -------------------------------------------------------------------------- */
+.media-card {
+  margin-top: 1.25rem;
+}
+
+.multimedia-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.media-box {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.media-subtitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.iframe-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background-color: #e2e8f0;
+}
+
+.embedded-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.audio-box {
+  justify-content: space-between;
+}
+
+.audio-player {
+  width: 100%;
+  margin: 1rem 0;
+  height: 44px;
+}
+
+.audio-status-box {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.82rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.audio-status-label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.audio-status-value {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.media-caption {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
    12. Section 5: About AirScape & Syllabus Implementation Matrix
    -------------------------------------------------------------------------- */
 .about-grid {
@@ -1340,7 +1500,7 @@ input[type="range"] {
 
 /* Syllabus Matrix Table / Grid */
 .syllabus-card {
-  margin-top: 0.5rem;
+  margin-top: 1.25rem;
 }
 
 .syllabus-sub {
@@ -1432,7 +1592,8 @@ input[type="range"] {
 @media (max-width: 900px) {
   .overview-grid,
   .advice-layout-grid,
-  .about-grid {
+  .about-grid,
+  .multimedia-grid {
     grid-template-columns: 1fr;
   }
 

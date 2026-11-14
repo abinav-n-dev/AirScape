@@ -2,7 +2,8 @@
 // AirScape - CSE326 (Internet Programming) Course Project
 // Pure Vanilla JavaScript Application (No frameworks, No build step)
 // Concepts Demonstrated: DOM Manipulation, Fetch API, Geolocation API,
-// Web Storage (localStorage), Drag & Drop API, Regular Expressions, Form Events.
+// Web Storage (localStorage & sessionStorage), Drag & Drop API, Regular Expressions,
+// Form Events, Higher-Order Functions, Closures, Audio Events.
 // =============================================================================
 
 // -----------------------------------------------------------------------------
@@ -340,7 +341,8 @@ function updateDashboard(city, aqi, pm25, pm10, hourlyArray, isFallback) {
 // -----------------------------------------------------------------------------
 // Function 4: renderForecast(hourlyArray)
 // Purpose: Builds 24 hourly bars using a JavaScript loop (Unit V), colours them
-// by category, and calculates the "best time" and "worst hour".
+// by category, calculates "best time", and demonstrates Higher-Order Functions
+// (.reduce, .filter, .map).
 // -----------------------------------------------------------------------------
 function renderForecast(hourlyArray) {
   const container = document.getElementById("forecast-bars-container");
@@ -348,6 +350,7 @@ function renderForecast(hourlyArray) {
   const bestDescElem = document.getElementById("best-hour-desc");
   const worstValElem = document.getElementById("worst-hour-val");
   const worstDescElem = document.getElementById("worst-hour-desc");
+  const statsSubElem = document.getElementById("forecast-stats-sub");
 
   if (!container) return;
   container.innerHTML = "";
@@ -362,6 +365,24 @@ function renderForecast(hourlyArray) {
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // Unit V: Higher-Order Functions Demonstration (.reduce, .filter, .map)
+  // ---------------------------------------------------------------------------
+  // 1. reduce: Compute the 24-hour average AQI
+  const dailyAverage = Math.round(hoursData.reduce((acc, val) => acc + val, 0) / hoursData.length);
+  
+  // 2. filter: Count hours exceeding the "Unhealthy" threshold (AQI > 150)
+  const unhealthyHoursCount = hoursData.filter((val) => val > 150).length;
+
+  // 3. map: Project data into formatted hour objects
+  const forecastMetrics = hoursData.map((val, idx) => {
+    return { hour: idx, aqi: Math.round(val) };
+  });
+
+  if (statsSubElem) {
+    statsSubElem.textContent = `Daily Average: ${dailyAverage} AQI | Unhealthy Hours: ${unhealthyHoursCount}/24`;
+  }
+
   // Find max AQI to scale the visual bar heights
   let maxAqi = Math.max(...hoursData, 200);
 
@@ -374,8 +395,9 @@ function renderForecast(hourlyArray) {
   let worstHourIndex = 0;
 
   // Loop through all 24 hours
-  for (let i = 0; i < 24; i++) {
-    const aqi = Math.round(hoursData[i]);
+  for (let i = 0; i < forecastMetrics.length; i++) {
+    const item = forecastMetrics[i];
+    const aqi = item.aqi;
     const cat = getAqiCategory(aqi);
 
     const period = i >= 12 ? "PM" : "AM";
@@ -453,6 +475,9 @@ async function fetchCityData(cityName) {
     statusBanner.className = "status-banner";
     statusText.textContent = `Finding your air for ${cityName}...`;
   }
+
+  // Increment session storage counter (Unit V)
+  recordSessionSearch();
 
   try {
     const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1`;
@@ -671,7 +696,7 @@ function setupSearchForm() {
 }
 
 // -----------------------------------------------------------------------------
-// Function 12: Web Storage Helpers (localStorage wrapped in try/catch)
+// Function 12: Web Storage Helpers (localStorage & sessionStorage - Unit V)
 // -----------------------------------------------------------------------------
 function saveToLocalStorage(key, value) {
   try {
@@ -691,6 +716,37 @@ function loadFromLocalStorage(key, defaultValue) {
     console.warn("localStorage read failed:", e);
   }
   return defaultValue;
+}
+
+// Unit V: Closures and Session Storage Tracker
+function createSessionSearchTracker() {
+  let sessionCount = 0;
+  try {
+    const stored = sessionStorage.getItem("sessionSearches");
+    if (stored !== null) sessionCount = parseInt(stored, 10) || 0;
+  } catch (e) {
+    console.warn("sessionStorage read failed:", e);
+  }
+
+  return function incrementSearch() {
+    sessionCount++;
+    try {
+      sessionStorage.setItem("sessionSearches", sessionCount.toString());
+    } catch (e) {
+      console.warn("sessionStorage write failed:", e);
+    }
+    updateSessionBadge(sessionCount);
+    return sessionCount;
+  };
+}
+
+const recordSessionSearch = createSessionSearchTracker();
+
+function updateSessionBadge(count) {
+  const badge = document.getElementById("session-counter-badge");
+  if (badge) {
+    badge.textContent = `Session Searches: ${count}`;
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -1152,7 +1208,35 @@ function renderComparisonVerdict() {
 }
 
 // -----------------------------------------------------------------------------
-// Function 19: setupNavigation()
+// Function 19: setupAudioEvents()
+// Purpose: Unit V - Demonstrates Audio element events (play, pause, timeupdate, ended)
+// -----------------------------------------------------------------------------
+function setupAudioEvents() {
+  const audio = document.getElementById("airscape-audio");
+  const statusElem = document.getElementById("audio-event-status");
+
+  if (!audio || !statusElem) return;
+
+  audio.addEventListener("play", () => {
+    statusElem.textContent = "Event: 'play' triggered";
+  });
+
+  audio.addEventListener("pause", () => {
+    statusElem.textContent = "Event: 'pause' triggered";
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    const sec = Math.floor(audio.currentTime);
+    statusElem.textContent = `Event: 'timeupdate' (${sec}s)`;
+  });
+
+  audio.addEventListener("ended", () => {
+    statusElem.textContent = "Event: 'ended' triggered";
+  });
+}
+
+// -----------------------------------------------------------------------------
+// Function 20: setupNavigation()
 // Purpose: Handles mobile menu toggle and highlights active section on scroll.
 // -----------------------------------------------------------------------------
 function setupNavigation() {
@@ -1196,7 +1280,7 @@ function setupNavigation() {
 }
 
 // -----------------------------------------------------------------------------
-// Function 20: initializeApp()
+// Function 21: initializeApp()
 // Purpose: Entry point. Runs on DOMContentLoaded to initialize all modules.
 // -----------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
@@ -1207,6 +1291,15 @@ document.addEventListener("DOMContentLoaded", () => {
   setupFavorites();
   setupHealthProfileForm();
   setupDragAndDropCompare();
+  setupAudioEvents();
+
+  // Initialize session searches badge from sessionStorage
+  try {
+    const sessionCount = parseInt(sessionStorage.getItem("sessionSearches"), 10) || 0;
+    updateSessionBadge(sessionCount);
+  } catch (e) {
+    console.warn("sessionStorage read failed:", e);
+  }
 
   const lastCity = loadFromLocalStorage("lastCity", "Delhi");
   fetchCityData(lastCity);

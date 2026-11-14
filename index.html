@@ -44,6 +44,7 @@
   <!-- Live Status / Loading Banner -->
   <div id="status-banner" class="status-banner" role="status" aria-live="polite">
     <span id="status-text">Loading AirScape...</span>
+    <span id="session-counter-badge" class="session-badge">Session Searches: 0</span>
   </div>
 
   <main class="main-content">
@@ -157,7 +158,7 @@
             <!-- CSS Haze Overlay (Becomes opaque as AQI rises) -->
             <div id="scene-haze" class="scene-haze" aria-hidden="true"></div>
 
-            <!-- Foreground Landscape Silhouette -->
+            <!-- Foreground Landscape Silhouette (Unit I: SVG Graphics) -->
             <div class="scene-silhouette" aria-hidden="true">
               <svg viewBox="0 0 500 120" preserveAspectRatio="none" class="landscape-svg">
                 <!-- City skyline and tree silhouettes -->
@@ -207,7 +208,10 @@
       <!-- 24 Hourly Chart Bars (Built with JavaScript Loop) -->
       <div class="card chart-card">
         <div class="chart-header">
-          <h3 class="chart-title">Hourly US AQI Trend</h3>
+          <div>
+            <h3 class="chart-title">Hourly US AQI Trend</h3>
+            <span id="forecast-stats-sub" class="chart-sub">Calculating daily statistics...</span>
+          </div>
           <span class="chart-sub">Scroll horizontally on mobile to view all 24 hours</span>
         </div>
 
@@ -228,6 +232,71 @@
             <span class="legend-chip" style="--chip-color: var(--aqi-very-unhealthy);">201-300 Very Unhealthy</span>
             <span class="legend-chip" style="--chip-color: var(--aqi-hazardous);">301+ Hazardous</span>
           </div>
+        </div>
+      </div>
+
+      <!-- Unit II: Tables and Data Representation -->
+      <div class="card table-card">
+        <h3 class="card-subtitle">US EPA Air Quality Index (AQI) Reference Table</h3>
+        <p class="form-instructions">Standard environmental benchmarks and particulate exposure limits.</p>
+        
+        <div class="table-responsive">
+          <table class="aqi-reference-table">
+            <caption>Official US EPA Air Quality Index Breakpoints & Health Standards</caption>
+            <thead>
+              <tr>
+                <th scope="col">AQI Range</th>
+                <th scope="col">Category</th>
+                <th scope="col">PM2.5 (µg/m³)</th>
+                <th scope="col">PM10 (µg/m³)</th>
+                <th scope="col">Health Implications</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>0 – 50</strong></td>
+                <td><span class="category-pill pill-good">Good</span></td>
+                <td>0.0 – 12.0</td>
+                <td>0 – 54</td>
+                <td>Air quality is satisfactory with minimal or no health risk.</td>
+              </tr>
+              <tr>
+                <td><strong>51 – 100</strong></td>
+                <td><span class="category-pill pill-moderate">Moderate</span></td>
+                <td>12.1 – 35.4</td>
+                <td>55 – 154</td>
+                <td>Acceptable air quality; minor concern for very sensitive individuals.</td>
+              </tr>
+              <tr>
+                <td><strong>101 – 150</strong></td>
+                <td><span class="category-pill pill-sensitive">Sensitive</span></td>
+                <td>35.5 – 55.4</td>
+                <td>155 – 254</td>
+                <td>Sensitive groups may experience symptoms; general public unaffected.</td>
+              </tr>
+              <tr>
+                <td><strong>151 – 200</strong></td>
+                <td><span class="category-pill pill-unhealthy">Unhealthy</span></td>
+                <td>55.5 – 150.4</td>
+                <td>255 – 354</td>
+                <td>Everyone may begin to experience health effects; sensitive groups more serious.</td>
+              </tr>
+              <tr>
+                <td><strong>201 – 300</strong></td>
+                <td><span class="category-pill pill-very-unhealthy">Very Unhealthy</span></td>
+                <td>150.5 – 250.4</td>
+                <td>355 – 424</td>
+                <td>Health alert: increased likelihood of adverse cardiac and pulmonary effects.</td>
+              </tr>
+              <tr>
+                <td><strong>301+</strong></td>
+                <td><span class="category-pill pill-hazardous">Hazardous</span></td>
+                <td>250.5+</td>
+                <td>425+</td>
+                <td>Emergency conditions: entire population is likely to be affected.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -471,11 +540,51 @@
               <strong>Offline-First Resilience:</strong> Gracefully falls back to cached data for 10 Indian cities if the network is disconnected.
             </li>
             <li>
-              <strong>Persistent User Preferences:</strong> Leverages LocalStorage to remember your saved cities and profile settings.
+              <strong>Persistent User Preferences:</strong> Leverages LocalStorage and SessionStorage to remember your saved cities and profile settings.
             </li>
           </ol>
         </article>
       </div>
+
+      <!-- Unit I & Unit V: Multimedia Elements (Audio, Video, Iframe, Images) -->
+      <article class="card media-card">
+        <h3 class="about-card-title">Multimedia Elements & Live Atmospheric Radar</h3>
+        <p class="form-instructions">Demonstrating HTML5 iframe embedding, SVG graphics, responsive images, and audio events.</p>
+
+        <div class="multimedia-grid">
+          <!-- HTML5 Iframe Component -->
+          <div class="media-box">
+            <h4 class="media-subtitle">Live Regional Air & Wind Stream Map (HTML5 Iframe)</h4>
+            <div class="iframe-container">
+              <iframe 
+                src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=5&overlay=pm25&product=ecmwf&level=surface&lat=28.65&lon=77.23" 
+                title="Regional PM2.5 Dispersion and Wind Map" 
+                class="embedded-iframe" 
+                loading="lazy"
+              ></iframe>
+            </div>
+            <p class="media-caption">Embedded live particulate map showing regional dispersion patterns across Northern India.</p>
+          </div>
+
+          <!-- HTML5 Audio Component with Event Handling -->
+          <div class="media-box audio-box">
+            <h4 class="media-subtitle">Audio Guide & Ambient Soundscape (HTML5 Audio)</h4>
+            <p class="media-caption">Listen to our 30-second advisory guide on interpreting particulate matter readings.</p>
+            
+            <audio id="airscape-audio" class="audio-player" controls preload="metadata">
+              <!-- Using standard royalty-free / browser-compatible sample audio -->
+              <source src="https://actions.google.com/sounds/v1/weather/wind_blowing_soft.ogg" type="audio/ogg">
+              <source src="https://actions.google.com/sounds/v1/weather/wind_blowing_soft.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+
+            <div class="audio-status-box">
+              <span class="audio-status-label">Audio Event Listener:</span>
+              <span id="audio-event-status" class="audio-status-value">Ready (Idle)</span>
+            </div>
+          </div>
+        </div>
+      </article>
 
       <!-- CSE326 Syllabus Checklist Card -->
       <article class="card syllabus-card">
@@ -486,9 +595,10 @@
           <div class="syllabus-unit">
             <h4>Unit I: HTML Fundamentals</h4>
             <ul>
-              <li>Semantic document structure</li>
+              <li>Document structure & semantics</li>
               <li>SVG graphics for landscape skyline</li>
-              <li>Accessible meta viewport & SEO descriptions</li>
+              <li>Multimedia: Audio player & Iframe map</li>
+              <li>SEO meta description & accessible markup</li>
             </ul>
           </div>
           <div class="syllabus-unit">
@@ -496,32 +606,37 @@
             <ul>
               <li>Header, nav, main, section, article, footer</li>
               <li>Input types (text, number, range, radio)</li>
-              <li>Accessible labels and aria-live announcements</li>
+              <li>Tables: US EPA Breakpoint reference table</li>
+              <li>Accessible labels & form validation</li>
             </ul>
           </div>
           <div class="syllabus-unit">
             <h4>Unit III: CSS3 Styling & Layout</h4>
             <ul>
-              <li>CSS Variables for AQI colors & themes</li>
+              <li>CSS Variables for AQI category themes</li>
               <li>Flexbox navigation & CSS Grid responsive cards</li>
-              <li>Transitions for smooth sky and sun shifts</li>
+              <li>Transitions for smooth sky shifts</li>
+              <li>Keyframe animation for live status badge</li>
             </ul>
           </div>
           <div class="syllabus-unit">
             <h4>Unit IV: JavaScript Fundamentals</h4>
             <ul>
-              <li>Clean variables, operators, and functions</li>
-              <li>Array operations for 24-hour calculations</li>
-              <li>Descriptive student comments on all functions</li>
+              <li>Variables, constants, data types & expressions</li>
+              <li>Array operations & objects manipulation</li>
+              <li>Short student functions with clear comments</li>
+              <li>Clean control flow with plain if/else</li>
             </ul>
           </div>
           <div class="syllabus-unit">
             <h4>Unit V: Interactive Web APIs</h4>
             <ul>
               <li>Fetch API with async/await and try/catch</li>
-              <li>Geolocation API for live coordinates</li>
+              <li>Geolocation API for live GPS coordinates</li>
               <li>HTML5 Drag & Drop API for city comparison</li>
-              <li>Web Storage API (localStorage) persistence</li>
+              <li>Web Storage: LocalStorage & SessionStorage</li>
+              <li>Audio events (play, pause, timeupdate)</li>
+              <li>Higher-order functions (.reduce, .filter, .map)</li>
               <li>Regular expressions for input validation</li>
             </ul>
           </div>
