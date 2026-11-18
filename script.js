@@ -1,8 +1,7 @@
 // =============================================================================
 // AirScape - Real-Time Air Quality & Atmosphere Visualizer
-// Pure Vanilla JavaScript Application (No frameworks, No build step)
-// Architecture: DOM Manipulation, Fetch API, Geolocation API, Web Storage,
-// HTML5 Drag & Drop API, Regular Expressions, Form Events, Higher-Order Functions.
+// Pure Vanilla JavaScript (DOM manipulation, Fetch API, Geolocation, Web Storage,
+// Drag & Drop, Forms, and Audio)
 // =============================================================================
 
 // -----------------------------------------------------------------------------
@@ -339,8 +338,8 @@ function updateDashboard(city, aqi, pm25, pm10, hourlyArray, isFallback) {
 
 // -----------------------------------------------------------------------------
 // Function 4: renderForecast(hourlyArray)
-// Purpose: Builds 24 hourly bars using a JavaScript loop (Unit V), colours them
-// by category, calculates "best time", and demonstrates Higher-Order Functions
+// Purpose: Builds 24 hourly bars using a JavaScript loop, colours them
+// by category, calculates "best time", and uses array methods
 // (.reduce, .filter, .map).
 // -----------------------------------------------------------------------------
 function renderForecast(hourlyArray) {
@@ -365,7 +364,7 @@ function renderForecast(hourlyArray) {
   }
 
   // ---------------------------------------------------------------------------
-  // Unit V: Higher-Order Functions Demonstration (.reduce, .filter, .map)
+  // Calculate daily stats using .reduce, .filter, and .map
   // ---------------------------------------------------------------------------
   // 1. reduce: Compute the 24-hour average AQI
   const dailyAverage = Math.round(hoursData.reduce((acc, val) => acc + val, 0) / hoursData.length);
@@ -475,7 +474,7 @@ async function fetchCityData(cityName) {
     statusText.textContent = `Finding your air for ${cityName}...`;
   }
 
-  // Increment session storage counter (Unit V)
+  // Increment session search counter
   recordSessionSearch();
 
   try {
@@ -695,7 +694,7 @@ function setupSearchForm() {
 }
 
 // -----------------------------------------------------------------------------
-// Function 12: Web Storage Helpers (localStorage & sessionStorage - Unit V)
+// Function 12: Web Storage Helpers (localStorage & sessionStorage)
 // -----------------------------------------------------------------------------
 function saveToLocalStorage(key, value) {
   try {
@@ -717,7 +716,7 @@ function loadFromLocalStorage(key, defaultValue) {
   return defaultValue;
 }
 
-// Unit V: Closures and Session Storage Tracker
+// Closure to track search count in sessionStorage
 function createSessionSearchTracker() {
   let sessionCount = 0;
   try {
@@ -1014,7 +1013,7 @@ function calculateHealthAdvice() {
 
 // -----------------------------------------------------------------------------
 // Function 16: setupDragAndDropCompare()
-// Purpose: HTML5 Drag and Drop API (Unit V). Allows dragging city chips into
+// Purpose: Drag and Drop functionality. Allows dragging city chips into
 // two dropzones, and also supports mobile dropdown selectors as a fallback.
 // -----------------------------------------------------------------------------
 function setupDragAndDropCompare() {
@@ -1208,7 +1207,7 @@ function renderComparisonVerdict() {
 
 // -----------------------------------------------------------------------------
 // Function 19: setupAudioEvents()
-// Purpose: Unit V - Demonstrates Audio element events (play, pause, timeupdate, ended)
+// Purpose: Audio element event listeners (play, pause, timeupdate, ended)
 // -----------------------------------------------------------------------------
 function setupAudioEvents() {
   const audio = document.getElementById("airscape-audio");

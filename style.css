@@ -4,7 +4,7 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. CSS Custom Properties / Variables (Unit III: CSS Variables)
+   1. CSS Custom Properties / Variables
    -------------------------------------------------------------------------- */
 :root {
   /* Primary Theme Colors */
@@ -47,7 +47,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Reset & Base Typography (Unit III: Box Model & Typography)
+   2. Reset & Base Typography
    -------------------------------------------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -89,7 +89,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   3. Header & Navigation (Unit II & III: Flexbox Navigation)
+   3. Header & Navigation
    -------------------------------------------------------------------------- */
 .site-header {
   position: sticky;
@@ -186,7 +186,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   4. Status Banner & Session Storage Badge (Unit V)
+   4. Status Banner & Storage Badge
    -------------------------------------------------------------------------- */
 .status-banner {
   background-color: #e0f2fe;
@@ -459,7 +459,7 @@ body {
   border-radius: var(--radius-full);
 }
 
-/* Unit III: CSS Animations (@keyframes) */
+/* CSS Animations (@keyframes) */
 @keyframes pulse-live {
   0% {
     box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.4);
@@ -649,7 +649,7 @@ body {
   transition: opacity var(--transition-scene);
 }
 
-/* Landscape Silhouette at Bottom (Unit I: SVG Graphics) */
+/* Landscape Silhouette at Bottom */
 .scene-silhouette {
   position: absolute;
   bottom: 0;
@@ -874,7 +874,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Unit II: Tables and Data Representation
+   AQI Reference Table
    -------------------------------------------------------------------------- */
 .table-card {
   margin-top: 1.5rem;
@@ -1374,7 +1374,7 @@ input[type="range"] {
 }
 
 /* --------------------------------------------------------------------------
-   Unit I & Unit V: Multimedia Elements (Audio, Video, Iframe)
+   Multimedia Elements (Audio, Iframe)
    -------------------------------------------------------------------------- */
 .media-card {
   margin-top: 1.25rem;
@@ -1538,7 +1538,7 @@ input[type="range"] {
 }
 
 /* --------------------------------------------------------------------------
-   13. Footer (Unit II: Semantic Footer)
+   13. Footer
    -------------------------------------------------------------------------- */
 .site-footer {
   background-color: #ffffff;
@@ -1590,7 +1590,7 @@ input[type="range"] {
 }
 
 /* --------------------------------------------------------------------------
-   14. Responsive Media Queries (Unit III: 360px, 768px, 1024px+ Widths)
+   14. Responsive Media Queries
    -------------------------------------------------------------------------- */
 
 /* Tablet Screens (max-width: 900px) */

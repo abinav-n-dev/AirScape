@@ -10,7 +10,7 @@
 <body>
 
   <!-- ===================================================== -->
-  <!-- HEADER & NAVIGATION (Semantic HTML5 - Unit I & II)    -->
+  <!-- HEADER & NAVIGATION                                   -->
   <!-- ===================================================== -->
   <header class="site-header">
     <div class="nav-container">
@@ -158,7 +158,7 @@
             <!-- CSS Haze Overlay (Becomes opaque as AQI rises) -->
             <div id="scene-haze" class="scene-haze" aria-hidden="true"></div>
 
-            <!-- Foreground Landscape Silhouette (Unit I: SVG Graphics) -->
+            <!-- Foreground Landscape Silhouette (SVG) -->
             <div class="scene-silhouette" aria-hidden="true">
               <svg viewBox="0 0 500 120" preserveAspectRatio="none" class="landscape-svg">
                 <!-- City skyline and tree silhouettes -->
@@ -235,7 +235,7 @@
         </div>
       </div>
 
-      <!-- Unit II: Tables and Data Representation -->
+      <!-- Air Quality Reference Table -->
       <div class="card table-card">
         <h3 class="card-subtitle">US EPA Air Quality Index (AQI) Reference Table</h3>
         <p class="form-instructions">Standard environmental benchmarks and particulate exposure limits.</p>
@@ -311,7 +311,7 @@
       </div>
 
       <div class="advice-layout-grid">
-        <!-- Profile Form Card (Form Validation with Regex - Unit II & V) -->
+        <!-- Profile Form Card -->
         <div class="card form-card">
           <h3 class="card-subtitle">Your Health Profile</h3>
           <p class="form-instructions">Fill in your details to calculate your personalized exposure risk.</p>
@@ -434,7 +434,7 @@
     </section>
 
     <!-- ===================================================== -->
-    <!-- SECTION 4: COMPARE (HTML5 Drag & Drop API - Unit V)  -->
+    <!-- SECTION 4: COMPARE                                    -->
     <!-- ===================================================== -->
     <section id="compare" class="section compare-section">
       <div class="section-header">
@@ -546,15 +546,15 @@
         </article>
       </div>
 
-      <!-- Unit I & Unit V: Multimedia Elements (Audio, Video, Iframe, Images) -->
+      <!-- Atmospheric Radar & Audio Guide -->
       <article class="card media-card">
-        <h3 class="about-card-title">Multimedia Elements & Live Atmospheric Radar</h3>
-        <p class="form-instructions">Demonstrating HTML5 iframe embedding, SVG graphics, responsive images, and audio events.</p>
+        <h3 class="about-card-title">Live Atmospheric Radar & Soundscape</h3>
+        <p class="form-instructions">Regional wind currents, particulate tracking, and ambient environmental audio.</p>
 
         <div class="multimedia-grid">
-          <!-- HTML5 Iframe Component -->
+          <!-- Live Wind Radar Iframe -->
           <div class="media-box">
-            <h4 class="media-subtitle">Live Regional Air & Wind Stream Map (HTML5 Iframe)</h4>
+            <h4 class="media-subtitle">Live Regional Air & Wind Stream Map</h4>
             <div class="iframe-container">
               <iframe 
                 src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=5&overlay=pm25&product=ecmwf&level=surface&lat=28.65&lon=77.23" 
@@ -566,9 +566,9 @@
             <p class="media-caption">Embedded live particulate map showing regional dispersion patterns across Northern India.</p>
           </div>
 
-          <!-- HTML5 Audio Component with Event Handling -->
+          <!-- Audio Component with Event Handling -->
           <div class="media-box audio-box">
-            <h4 class="media-subtitle">Audio Guide & Ambient Soundscape (HTML5 Audio)</h4>
+            <h4 class="media-subtitle">Audio Guide & Ambient Soundscape</h4>
             <p class="media-caption">Listen to our atmospheric soundscape and environmental guide.</p>
             
             <audio id="airscape-audio" class="audio-player" controls preload="auto">
