@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AirScape - CA1 Project Online Submission</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 15mm;
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #ffffff;
+    }
+    .header-box {
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .inst-name {
+      font-size: 14pt;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+    .sub-head {
+      font-size: 11pt;
+      color: #64748b;
+      margin: 4px 0 0;
+    }
+    .doc-title {
+      font-size: 18pt;
+      font-weight: 800;
+      color: #0284c7;
+      margin: 14px 0 4px;
+    }
+    .section-title {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #0f172a;
+      border-left: 4px solid #0284c7;
+      padding-left: 8px;
+      margin: 18px 0 8px;
+      text-transform: uppercase;
+    }
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      font-size: 10pt;
+    }
+    .info-table th, .info-table td {
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+      text-align: left;
+    }
+    .info-table th {
+      background-color: #f1f5f9;
+      width: 28%;
+      color: #334155;
+    }
+    .link-box {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 10pt;
+      word-break: break-all;
+    }
+    .link-box strong {
+      color: #0369a1;
+      display: inline-block;
+      min-width: 180px;
+    }
+    .link-box a {
+      color: #0284c7;
+      text-decoration: underline;
+    }
+    p, li {
+      font-size: 10pt;
+      color: #334155;
+    }
+    ul, ol {
+      margin: 4px 0 8px 20px;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    .print-btn-bar {
+      margin-bottom: 16px;
+      text-align: right;
+    }
+    .print-btn {
+      background-color: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 10pt;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    @media print {
+      .print-btn-bar { display: none; }
+      body { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-btn-bar">
+    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <div class="header-box">
+    <div class="inst-name">Lovely Professional University</div>
+    <div class="sub-head">Department of Computer Science & Engineering | Academic Task CA1 Submission</div>
+    <div class="doc-title">Project Submission: AirScape</div>
+  </div>
+
+  <div class="section-title">1. Project & Student Identification</div>
+  <table class="info-table">
+    <tr>
+      <th>Project Title</th>
+      <td><strong>AirScape</strong> - Real-Time Air Quality & Visual Scene Web App</td>
+    </tr>
+    <tr>
+      <th>Course Details</th>
+      <td><strong>CSE326</strong> - Internet Programming | Academic Task: <strong>CA1</strong></td>
+    </tr>
+    <tr>
+      <th>Student Name(s)</th>
+      <td>Abinav [Edit: Add Group Member Names if in group]</td>
+    </tr>
+    <tr>
+      <th>Registration Number(s)</th>
+      <td>[Edit: Enter Your Registration Number(s) Here]</td>
+    </tr>
+    <tr>
+      <th>Group / Section</th>
+      <td>[Edit: Enter Your Section / Roll Number]</td>
+    </tr>
+  </table>
+
+  <div class="section-title">2. Mandatory Submission Links</div>
+  <div class="link-box">
+    <strong>GitHub Repository Link:</strong>
+    <a href="https://github.com/abinav-n-dev/AirScape" target="_blank">https://github.com/abinav-n-dev/AirScape</a>
+  </div>
+  <div class="link-box">
+    <strong>Live Project Deployment URL:</strong>
+    <a href="https://abinav-n-dev.github.io/AirScape/" target="_blank">https://abinav-n-dev.github.io/AirScape/</a>
+  </div>
+  <div class="link-box">
+    <strong>Hosting Platform:</strong>
+    GitHub Pages (Static Client-Side Deployment)
+  </div>
+  <div class="link-box">
+    <strong>Google Drive Video Link:</strong>
+    <a href="[PASTE_YOUR_GOOGLE_DRIVE_VIDEO_LINK_HERE]" target="_blank">[PASTE_YOUR_GOOGLE_DRIVE_VIDEO_LINK_HERE]</a>
+    <br><small style="color: #64748b;">(Permission verified: Anyone with the link &ndash; Viewer | Duration: 5&ndash;10 Minutes)</small>
+  </div>
+
+  <div class="section-title">3. Project Overview & Problem Statement</div>
+  <p>
+    <strong>Problem Solved:</strong> Every winter across Northern India (Punjab, Haryana, Delhi-NCR), seasonal crop residue burning combined with atmospheric temperature inversion traps toxic particulate matter (PM2.5/PM10) near ground level. Existing weather applications merely display an abstract numerical AQI (e.g., 250) and broadcast generic precautions.
+  </p>
+  <p>
+    <strong>The Solution:</strong> <em>AirScape</em> translates abstract pollution metrics into a live CSS-driven atmospheric visual scene (altering sky gradients, solar attenuation blur, and haze density in real time). It features an exposure algorithm calculating an <em>Effective Personal AQI</em> customized for age, outdoor hours, and respiratory sensitivity, a 24-hour predictive activity planner, and an interactive Drag and Drop city comparison tool.
+  </p>
+
+  <div class="section-title">4. Technologies Used</div>
+  <ul>
+    <li><strong>Semantic HTML5:</strong> Document hierarchy, accessible forms (sliders, radio fieldsets), SVG skyline horizon, EPA standard table, embedded wind map iframe, and audio element.</li>
+    <li><strong>CSS3 Design System:</strong> CSS Variables (EPA AQI palettes), Flexbox navigation, responsive CSS Grid, hardware-accelerated transitions (0.8s ease), and keyframe pulse animations.</li>
+    <li><strong>Vanilla JavaScript (ES6):</strong> Asynchronous API calls, DOM manipulation, functional programming (.reduce, .filter, .map), regex validation, and lexical closures.</li>
+    <li><strong>Browser APIs:</strong> Fetch API (Open-Meteo REST endpoints), Geolocation API (GPS lookup), HTML5 Drag & Drop API, and dual-tier Web Storage (localStorage & sessionStorage).</li>
+  </ul>
+
+  <div class="section-title">5. Individual Role and Contribution</div>
+  <p>
+    <strong>Core Architecture & Full-Stack Client Implementation:</strong>
+  </p>
+  <ul>
+    <li>Architected the complete responsive single-page application using pure HTML5, CSS3, and JavaScript without external frameworks or build dependencies.</li>
+    <li>Implemented the dynamic CSS Atmospheric Sky Simulator engine (<code>updateScene</code>) translating real-time AQI into smooth visual environmental transitions.</li>
+    <li>Engineered the client-side personal health advisory engine calculating customized Effective AQI based on pediatric/geriatric and respiratory risk factors.</li>
+    <li>Developed the 24-hour predictive forecast loop with higher-order functions and built the HTML5 Drag & Drop side-by-side city comparison tool.</li>
+    <li>Integrated Geolocation, REST APIs, Web Storage (localStorage & sessionStorage), offline 10-city fallback cache, and deployed to GitHub Pages.</li>
+  </ul>
+
+</body>
+</html>
