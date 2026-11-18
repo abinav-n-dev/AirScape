@@ -4,7 +4,8 @@ A simple air quality and smog monitoring web page built using pure HTML, CSS, an
 
 It shows the AQI (Air Quality Index) for different Indian cities, changes the background sky color depending on how bad the pollution is, and gives personalized health tips.
 
-Live Demo: https://abinav-n-dev.github.io/AirScape/
+Live Demo: https://airscape.vercel.app
+(Mirror: https://abinav-n-dev.github.io/AirScape/)
 
 ## Features
 - Dynamic Sky: The sky changes color from blue (clean) to yellow, orange, and brown (smoggy) depending on AQI.
