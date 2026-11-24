@@ -46,6 +46,28 @@
   --transition-scene: 0.8s ease;
 }
 
+/* Dark Mode Theme Tokens */
+[data-theme="dark"] {
+  --primary-color: #38bdf8;
+  --primary-hover: #7dd3fc;
+  --primary-light: rgba(56, 189, 248, 0.15);
+  
+  --bg-body: #0b1120;
+  --bg-card: #1e293b;
+  --bg-subtle: #0f172a;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
+  
+  --border-color: #334155;
+  --border-focus: #38bdf8;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
 /* --------------------------------------------------------------------------
    2. Reset & Base Typography
    -------------------------------------------------------------------------- */
@@ -164,6 +186,44 @@ body {
   color: var(--primary-color);
   background-color: var(--primary-light);
   font-weight: 600;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.theme-icon {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+.theme-icon.hidden {
+  display: none;
 }
 
 /* Mobile Menu Toggle Button (Hamburger) */
@@ -1619,7 +1679,7 @@ input[type="range"] {
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: #ffffff;
+    background-color: var(--bg-card);
     border-bottom: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     padding: 1rem;
@@ -1714,4 +1774,69 @@ input[type="range"] {
     flex-direction: column;
     gap: 0.5rem;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Dark Theme Component Enhancements
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .site-header {
+  background-color: rgba(15, 23, 42, 0.95);
+}
+
+[data-theme="dark"] .site-footer {
+  background-color: var(--bg-card);
+}
+
+[data-theme="dark"] .search-input-group input,
+[data-theme="dark"] .form-group input[type="text"],
+[data-theme="dark"] .form-group input[type="number"],
+[data-theme="dark"] .compare-select {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .search-input-group input:focus,
+[data-theme="dark"] .form-group input[type="text"]:focus,
+[data-theme="dark"] .form-group input[type="number"]:focus {
+  background-color: #1e293b;
+  border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .status-banner {
+  background-color: #0c4a6e;
+  color: #e0f2fe;
+  border-color: #0369a1;
+}
+
+[data-theme="dark"] .aqi-reference-table th,
+[data-theme="dark"] .info-table th {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .aqi-reference-table td,
+[data-theme="dark"] .aqi-reference-table th {
+  border-color: #334155;
+}
+
+[data-theme="dark"] .syllabus-unit,
+[data-theme="dark"] .dropzone,
+[data-theme="dark"] .media-box,
+[data-theme="dark"] .fav-container {
+  background-color: #0f172a;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .menu-toggle .bar {
+  background-color: #f8fafc;
+}
+
+[data-theme="dark"] .dropzone-placeholder {
+  color: #64748b;
+}
+
+[data-theme="dark"] .slider-badge {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
 }

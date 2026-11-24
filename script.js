@@ -1347,10 +1347,48 @@ function setupNavigation() {
 }
 
 // -----------------------------------------------------------------------------
-// Function 21: initializeApp()
+// Function 21: setupThemeToggle()
+// Purpose: Toggles between Light and Dark themes, persists choice in localStorage.
+// -----------------------------------------------------------------------------
+function setupThemeToggle() {
+  const toggleBtn = document.getElementById("theme-toggle");
+  const sunIcon = document.getElementById("theme-sun-icon");
+  const moonIcon = document.getElementById("theme-moon-icon");
+  const themeLabel = document.getElementById("theme-label");
+
+  const savedTheme = localStorage.getItem("airscape-theme") || "light";
+  applyTheme(savedTheme);
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const nextTheme = isDark ? "light" : "dark";
+      applyTheme(nextTheme);
+      localStorage.setItem("airscape-theme", nextTheme);
+    });
+  }
+
+  function applyTheme(theme) {
+    if (theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+      if (sunIcon) sunIcon.classList.remove("hidden");
+      if (moonIcon) moonIcon.classList.add("hidden");
+      if (themeLabel) themeLabel.textContent = "Light";
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      if (sunIcon) sunIcon.classList.add("hidden");
+      if (moonIcon) moonIcon.classList.remove("hidden");
+      if (themeLabel) themeLabel.textContent = "Dark";
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Function 22: initializeApp()
 // Purpose: Entry point. Runs on DOMContentLoaded to initialize all modules.
 // -----------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
+  setupThemeToggle();
   setupNavigation();
   setupQuickCityButtons();
   setupSearchForm();
